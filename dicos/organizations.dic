@@ -1,0 +1,458 @@
+armée	ORG_POL_IN
+troupe	ORG_POL_IN
+force	ORG_POL_IN
+police	ORG_POL_IN
+partisan	ORG_POL_IN
+militant	ORG_POL_IN
+autorité	ORG_INST_PRE
+administration	ORG_INST_PRE
+chambre	ORG_INST_PRE
+société	ORG_ENT_PRE
+société	ORG_ENT_IN
+entreprise	ORG_ENT_PRE
+parti	ORG_POL_PRE
+parti	ORG_POL_IN
+association	ORG_INST_PRE
+banque	ORG_ENT_PRE
+commission	ORG_INST_PRE
+commission	ORG_INST_IN
+conseil	ORG_INST_IN
+journal	ORG_MED_PRE
+journal	ORG_MED_IN
+revue	ORG_MED_PRE
+syndicat	ORG_INST_PRE
+union	ORG_INST_PRE
+organisation	ORG_INST_PRE
+organisme	ORG_INST_PRE
+assemblée	ORG_POL_IN
+parlement	ORG_POL_IN
+régime	ORG_POL_IN
+club	ORG_POL_PRE
+compagnie	ORG_ENT_PRE
+fédération	ORG_INST_PRE
+groupe	ORG_ENT_PRE
+holding	ORG_ENT_PRE
+cabinet	ORG_ENT_PRE
+cabinet	ORG_POL_PRE
+cabinet	ORG_INST_PRE
+ligue	ORG_POL_PRE
+ligue	ORG_INST_PRE
+Parti	ORG_POL_IN
+Société	ORG_ENT_IN
+Administration	ORG_INST_IN
+Autorité	ORG_INST_IN
+Chambre	ORG_INST_IN
+Association	ORG_POL_IN
+Banque	ORG_ENT_IN
+Centre	ORG_INST_IN
+Commission	ORG_POL_IN
+Conseil	ORG_POL_IN
+Fédération	ORG_INST_IN
+Journal	ORG_MED_IN
+Revue	ORG_MED_IN
+Ligue	ORG_POL_IN
+Ligue	ORG_INST_IN
+Mouvement	ORG_POL_IN
+Syndicat	ORG_POL_IN
+Union	ORG_POL_IN
+Organisation	ORG_INST_IN
+Organisme	ORG_INST_IN
+Club	ORG_POL_IN
+Compagnie	ORG_ENT_IN
+Groupe	ORG_ENT_IN
+Holding	ORG_ENT_IN
+sénat	ORG_POL
+Sénat	ORG_POL
+Assemblée	ORG_POL
+assemblée nationale	ORG_POL
+Parlement	ORG_POL
+parlement	ORG_NICK
+gouvernement	ORG_NICK
+Gouvernement	ORG_INST
+république	ORG_NICK
+République	ORG_INST
+Elysée	ORG_INST
+Matignon	ORG_INST
+état	ORG_NICK
+Etat	ORG_INST
+État	ORG_INST
+assemblée	ORG_NICK
+justice	ORG_NICK
+intérieur	ORG_NICK
+défense	ORG_NICK
+santé	ORG_NICK
+budget	ORG_NICK
+affaires étrangères	ORG_NICK
+Affaires étrangères	ORG_NICK
+quai de Orsay	ORG_NICK
+quai de orsay	ORG_NICK
+Nations-Unies	ORG_POL
+Nations Unies	ORG_POL
+Nations unies	ORG_POL
+nations unies	ORG_POL
+Europe	ORG_POL
+Communauté Européenne	ORG_POL
+Union Européenne	ORG_POL
+Union européenne	ORG_POL
+union européenne	ORG_POL
+union ORG_NICK
+Union ORG_NICK
+France	ORG_COUNT
+France	ORG_COUNT
+hexagone ORG_NICK
+ACF	ORG_INST
+ADEME	ORG_INST
+AFNIC	ORG_INST
+AFNOR	ORG_INST
+AFSSAPS	ORG_INST
+AIEA	ORG_INST
+ANPE	ORG_INST
+AOL	ORG_ENT
+ARTE	ORG_MED
+ATTAC	ORG_POL
+CAF	ORG_INST
+CDC	ORG_INST
+CEA	ORG_INST
+CEE	ORG_INST
+CEI	ORG_INST
+CFDT	ORG_POL
+CGT	ORG_POL
+CHRS	ORG_INST
+CICR	ORG_INST
+CIO	ORG_INST
+CNAM	ORG_INST
+CNED	ORG_INST
+CNIL	ORG_INST
+CNRS	ORG_INST
+CROUS	ORG_INST
+CSM	ORG_INST
+DDE	ORG_INST
+DGSE	ORG_INST
+DST	ORG_INST
+ENA	ORG_INST
+ENS	ORG_INST
+EPIC	ORG_INST
+FFF	ORG_SPORT
+FIFA	ORG_SPORT
+FMI	ORG_INST
+FN	ORG_POL
+FO	ORG_POL
+G20	ORG_INST
+G8	ORG_INST
+GIGN	ORG_INST
+GIPN	ORG_INST
+HEC	ORG_INST
+HP	ORG_ENT
+IBM	ORG_ENT
+INRIA	ORG_INST
+INSEE	ORG_INST
+INSERM	ORG_INST
+KFOR	ORG_POL
+LMDE	ORG_INST
+LVMH	ORG_ENT
+MI5	ORG_INST
+MI6	ORG_INST
+NASDAQ	ORG_ENT
+NBA	ORG_SPORT
+NFL	ORG_SPORT
+NHL	ORG_SPORT
+NPA	ORG_POL
+NSA	ORG_INST
+NYSE	ORG_ENT
+OCDE	ORG_INST
+OIT	ORG_INST
+OL	ORG_SPORT
+OLP	ORG_POL
+OM	ORG_SPORT
+OMC	ORG_INST
+OMI	ORG_INST
+OMS	ORG_INST
+ONISEP	ORG_INST
+ONU	ORG_INST
+_ONU	ORG_INST
+OPEP	ORG_INST
+ORTF	ORG_MED
+OTAN	ORG_POL
+OUA	ORG_INST
+PCF	ORG_POL
+PJ	ORG_INST
+PS	ORG_POL
+PSG	ORG_SPORT
+RATP	ORG_ENT
+RPR	ORG_POL
+RSF	ORG_INST
+RTBF	ORG_MED
+RTE	ORG_MED
+RTL	ORG_MED
+SAMU	ORG_INST
+SNCF	ORG_ENT
+SNCB	ORG_ENT
+SNEP	ORG_INST
+SNES	ORG_INST
+SNESUP	ORG_INST
+SUD	ORG_POL
+TF1	ORG_MED
+TGI	ORG_INST
+TI	ORG_INST
+TMC	ORG_MED
+TNP	ORG_MED
+TPI	ORG_INST
+UE	ORG_INST
+UMP	ORG_POL
+UNEF	ORG_INST
+UNESCO	ORG_INST
+UNICEF	ORG_INST
+UNSA	ORG_INST
+VNF	ORG_INST
+W3C	ORG_INST
+WWF	ORG_POL
+Arte	ORG_MED
+Africa 1	ORG_MED
+Africe One	ORG_MED
+A Vous de Juger	ORG_MED
+BFM Business	ORG_MED
+BFM Story	ORG_MED
+BFMTV	ORG_MED
+BFM TV	ORG_MED
+Bleu Gironde	ORG_MED
+Canal+	ORG_MED
+Ca Se Discute	ORG_MED
+Ca Vous Regarde	ORG_MED
+Comme on nous Parle	ORG_MED
+Echos	ORG_MED
+Entre les Lignes	ORG_MED
+Esprit critique	ORG_MED
+Europe 1	ORG_MED
+Figaro	ORG_MED
+Figaro magazine	ORG_MED
+Figaro Magazine	ORG_MED
+Fig Mag	ORG_MED
+Fou du Roi	ORG_MED
+France 2	ORG_MED
+France 24	ORG_MED
+France 3	ORG_MED
+France Bleu Armorique	ORG_MED
+France Inter	ORG_MED
+Friends	ORG_MED
+Gala	ORG_MED
+Grand journal	ORG_MED
+Grand Journal	ORG_MED
+Inrockuptibles	ORG_MED
+Jeune et Jolie	ORG_MED
+Journal Du Dimanche	ORG_MED
+La Place du Village	ORG_MED
+La Vie	ORG_MED
+LCP	ORG_MED
+Obs	ORG_MED
+Observateur	ORG_MED
+Marianne	ORG_MED
+masque et la plume	ORG_MED
+Masque et la plume	ORG_MED
+Mediapart	ORG_MED
+Monde	ORG_MED
+Nouvel Obs	ORG_MED
+Nouvel Observateur	ORG_MED
+Parisien	ORG_MED
+Paris Match	ORG_MED
+Pile et Face	ORG_MED
+Point	ORG_MED
+Questions pour un champion	ORG_MED
+Qui veut gagner des millions	ORG_MED
+Radio BFM	ORG_MED
+Radio Canada	ORG_MED
+Radio France	ORG_MED
+Radio France Internationale	ORG_MED
+Regards RMC	ORG_MED
+RFI	ORG_MED
+RMC Sport	ORG_MED
+RTL	ORG_MED
+Service public	ORG_MED
+Service Public	ORG_MED
+Stade 2	ORG_MED
+Sud-Ouest	ORG_MED
+Terra Eco	ORG_MED
+TF1	ORG_MED
+Top Questions	ORG_MED
+Toute Une Histoire	ORG_MED
+TV8 Mont-Blanc	ORG_MED
+télé 8 Mont-Blanc	ORG_MED
+télé 8 Mont-Blanc télévision	ORG_MED
+TVME	ORG_MED
+USA Today	ORG_MED
+VSD	ORG_MED
+Le Point	ORG_MED
+Le Nouvel Obs	ORG_MED
+Wikileaks	ORG_MED
+YouTube	ORG_MED
+Google	ORG_MED
+Agence France-Presse	ORG_MED
+Agence France Presse	ORG_MED
+droite	ORG_NICK
+gauche	ORG_NICK
+majorité	ORG_NICK
+opposition	ORG_NICK
+extrême gauche	ORG_NICK
+extrême droite	ORG_NICK
+Medef	ORG_POL
+Front National	ORG_POL
+Parti Socialiste	ORG_POL
+parti socialiste	ORG_POL
+Nouveau Centre	ORG_POL
+nouveau centre	ORG_POL
+syndicat	ORG_POL
+syndicats	ORG_POL
+sécurité sociale	ORG_ENT
+Sécurité Sociale	ORG_ENT
+assurance maladie	ORG_ENT
+Assurance Maladie	ORG_ENT
+Maison Blanche	ORG_INST
+maison blanche	ORG_INST
+Pentagone	ORG_INST
+Conseil de sécurité	ORG_INST
+conseil de sécurité	ORG_INST
+conseil de sécurité des Nations Unies	ORG_INST
+Conseil de sécurité des Nations Unies	ORG_INST
+collectivités territoriales	ORG_INST
+Hezbollah	ORG_POL
+Fatah	ORG_POL
+Jihad islamique	ORG_POL
+Al-Qaida	ORG_POL
+Al Qaida	ORG_POL
+AQMI	ORG_POL
+ETA	ORG_POL
+Elf	ORG_ENT
+ELF	ORG_ENT
+Météo France	ORG_ENT
+Air France	ORG_ENT
+Orange	ORG_ENT
+Bouygues	ORG_ENT
+Nissan	ORG_ENT
+France Télévisions	ORG_ENT
+Croix-Rouge	ORG_ENT
+Union	ORG_LOC_GOV
+Union Européenne	ORG_LOC_GOV
+Allemagne	ORG_LOC_GOV
+Berlin	ORG_LOC_GOV
+Belgique	ORG_LOC_GOV
+Bruxelles	ORG_LOC_GOV
+Danemark	ORG_LOC_GOV
+Espagne	ORG_LOC_GOV
+Madrid	ORG_LOC_GOV
+Finlande	ORG_LOC_GOV
+Helsinki	ORG_LOC_GOV
+France	ORG_LOC_GOV
+Paris	ORG_LOC_GOV
+Grèce	ORG_LOC_GOV
+Athènes	ORG_LOC_GOV
+Irlande	ORG_LOC_GOV
+Dublin	ORG_LOC_GOV
+Italie	ORG_LOC_GOV
+Rome	ORG_LOC_GOV
+Luxembourg	ORG_LOC_GOV
+Pays-Bas	ORG_LOC_GOV
+Pologne	ORG_LOC_GOV
+Portugal	ORG_LOC_GOV
+Lisbonne	ORG_LOC_GOV
+Roumanie	ORG_LOC_GOV
+Bucarest	ORG_LOC_GOV
+Royaume-Uni	ORG_LOC_GOV
+Grande-Bretagne	ORG_LOC_GOV
+Grande Bretagne	ORG_LOC_GOV
+Angleterre	ORG_LOC_GOV
+Londres	ORG_LOC_GOV
+Suède	ORG_LOC_GOV
+Stockholm	ORG_LOC_GOV
+Chine	ORG_LOC_GOV
+Pékin	ORG_LOC_GOV
+Etats-Unis	ORG_LOC_GOV
+Etats Unis	ORG_LOC_GOV
+états-unis	ORG_LOC_GOV
+états unis	ORG_LOC_GOV
+Washington	ORG_LOC_GOV
+Russie	ORG_LOC_GOV
+Moscou	ORG_LOC_GOV
+Australie	ORG_LOC_GOV
+Canada	ORG_LOC_GOV
+Turquie	ORG_LOC_GOV
+Ankara	ORG_LOC_GOV
+Arabie saoudite	ORG_LOC_GOV
+Riyad	ORG_LOC_GOV
+Inde	ORG_LOC_GOV
+New Delhi	ORG_LOC_GOV
+Japon	ORG_LOC_GOV
+Tokyo	ORG_LOC_GOV
+Brésil	ORG_LOC_GOV
+Corée	ORG_LOC_GOV
+Corée du Nord	ORG_LOC_GOV
+Corée du nord	ORG_LOC_GOV
+Corée du Sud	ORG_LOC_GOV
+Corée du sud	ORG_LOC_GOV
+Séoul	ORG_LOC_GOV
+Argentine	ORG_LOC_GOV
+Buenos Aires	ORG_LOC_GOV
+Mexique	ORG_LOC_GOV
+AS	ORG_SPORT_AFF
+AC	ORG_SPORT_AFF
+INTER	ORG_SPORT_AFF
+Inter	ORG_SPORT_AFF
+inter	ORG_SPORT_AFF
+RC	ORG_SPORT_AFF
+Real	ORG_SPORT_AFF
+real	ORG_SPORT_AFF
+sporting	ORG_SPORT_AFF
+Sporting	ORG_SPORT_AFF
+FC	ORG_SPORT_AFF
+Olympique	ORG_SPORT_AFF
+olympique	ORG_SPORT_AFF
+Stade	ORG_SPORT_AFF
+stade	ORG_SPORT_AFF
+Saint-Étienne	ORG_SPORT_LOC
+Marseille	ORG_SPORT_LOC
+Nantes	ORG_SPORT_LOC
+Lyon	ORG_SPORT_LOC
+Monaco	ORG_SPORT_LOC
+Bordeaux	ORG_SPORT_LOC
+Nice	ORG_SPORT_LOC
+Lille	ORG_SPORT_LOC
+Paris	ORG_SPORT_LOC
+Sochaux	ORG_SPORT_LOC
+Auxerre	ORG_SPORT_LOC
+Lens	ORG_SPORT_LOC
+Strasbourg	ORG_SPORT_LOC
+Le Mans	ORG_SPORT_LOC
+Sedan	ORG_SPORT_LOC
+Angers	ORG_SPORT_LOC
+Clermont	ORG_SPORT_LOC
+Clermont Ferrant	ORG_SPORT_LOC
+Clermont-Ferrant	ORG_SPORT_LOC
+Boulogne	ORG_SPORT_LOC
+Troyes	ORG_SPORT_LOC
+Metz	ORG_SPORT_LOC
+Bastia	ORG_SPORT_LOC
+Arsenal	ORG_SPORT_LOC
+Aston Villa	ORG_SPORT_LOC
+Chelsea	ORG_SPORT_LOC
+Liverpool	ORG_SPORT_LOC
+Manchester	ORG_SPORT_LOC
+Manchester City	ORG_SPORT_LOC
+Manchester United	ORG_SPORT_LOC
+Dortmund	ORG_SPORT_LOC
+Bayern	ORG_SPORT_LOC
+Bayern Munich	ORG_SPORT_LOC
+Juventus	ORG_SPORT_LOC
+Turin	ORG_SPORT_LOC
+Milan	ORG_SPORT_LOC
+Lazio	ORG_SPORT_LOC
+Lazio Rome	ORG_SPORT_LOC
+Milan	ORG_SPORT_LOC
+Roma	ORG_SPORT_LOC
+Fiorentina	ORG_SPORT_LOC
+Madrid	ORG_SPORT_LOC
+Barcelone	ORG_SPORT_LOC
+Valence	ORG_SPORT_LOC
+Bilbao	ORG_SPORT_LOC
+Séville	ORG_SPORT_LOC
+Villarreal	ORG_SPORT_LOC
+Roland Garros	ORG_SPORT_LOC
+Sciences Po	ORG_INST
+

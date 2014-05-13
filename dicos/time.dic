@@ -1,0 +1,144 @@
+ce	TIME_MOD_PRE
+en	TIME_MOD_PRE
+début	TIME_MOD_PRE
+en début	TIME_MOD_PRE
+en début de	TIME_MOD_PRE
+en ce début de	TIME_MOD_PRE
+fin	TIME_MOD_PRE
+en fin	TIME_MOD_PRE
+en fin de	TIME_MOD_PRE
+à la fin	TIME_MOD_PRE
+à la fin de	TIME_MOD_PRE
+avant	TIME_MOD_PRE
+pas avant	TIME_MOD_PRE
+avant le	TIME_MOD_PRE
+un peu avant	TIME_MOD_PRE
+un peu avant le	TIME_MOD_PRE
+après	TIME_MOD_PRE
+pas après	TIME_MOD_PRE
+après le	TIME_MOD_PRE
+un peu après	TIME_MOD_PRE
+un peu après le	TIME_MOD_PRE
+pendant	TIME_MOD_PRE
+pendant le	TIME_MOD_PRE
+depuis	TIME_MOD_PRE
+depuis le	TIME_MOD_PRE
+à partir du	TIME_MOD_PRE
+à partir de	TIME_MOD_PRE
+jusque	TIME_MOD_PRE
+jusqu' en	TIME_MOD_PRE
+jusqu' à	TIME_MOD_PRE
+jusqu' au	TIME_MOD_PRE
+dès	TIME_MOD_PRE
+dès le	TIME_MOD_PRE
+durant	TIME_MOD_PRE
+il y a	TIME_MOD_PRE
+tous les	TIME_MOD_PRE
+chaque	TIME_MOD_PRE
+prochain	TIME_MOD_POST
+dernier	TIME_MOD_POST
+suivant	TIME_MOD_POST
+d'après	TIME_MOD_POST
+avant-hier	TIME_REL
+avant hier	TIME_REL
+hier	TIME_REL
+aujourd'hui	TIME_REL
+aujourd' hui	TIME_REL
+maintenant	TIME_REL
+tout à le heure	TIME_REL
+pour l' instant	TIME_REL
+tantôt	TIME_REL
+demain	TIME_REL
+après-demain	TIME_REL
+lendemain	TIME_REL
+autrefois	TIME_REL
+sur lendemain	TIME_REL
+sur-lendemain	TIME_REL
+surlendemain	TIME_REL
+après-demain	TIME_REL
+après demain	TIME_REL
+tard	TIME_REL
+plus tard	TIME_REL
+tôt	TIME_REL
+plus tôt	TIME_REL
+aube	TIME_PART
+matin	TIME_PART
+midi	TIME_PART
+après-midi	TIME_PART
+soir	TIME_PART
+jour	TIME_PART
+journée	TIME_PART
+nuit	TIME_PART
+instant	TIME_QUANT
+moment	TIME_QUANT
+seconde	TIME_QUANT
+minute	TIME_QUANT
+heure	TIME_QUANT
+h	TIME_QUANT
+matinée	TIME_QUANT
+soirée	TIME_QUANT
+jour	TIME_QUANT
+journée	TIME_QUANT
+nuit	TIME_QUANT
+semaine	TIME_QUANT
+mois	TIME_QUANT
+trimestre	TIME_QUANT
+semestre	TIME_QUANT
+saison	TIME_QUANT
+an	TIME_QUANT
+année	TIME_QUANT
+quiquennat	TIME_QUANT
+septennat	TIME_QUANT
+décennie	TIME_QUANT
+centenaire	TIME_QUANT
+siècle	TIME_QUANT
+millénaire	TIME_QUANT
+printemps	TIME_SEASON
+été	TIME_SEASON
+automne	TIME_SEASON
+hiver	TIME_SEASON
+lundi	TIME_DAY
+mardi	TIME_DAY
+mercredi	TIME_DAY
+jeudi	TIME_DAY
+vendredi	TIME_DAY
+samedi	TIME_DAY
+dimanche	TIME_DAY
+week-end	TIME_DAY
+week end	TIME_DAY
+janvier	TIME_MON
+février	TIME_MON
+mars	TIME_MON
+avril	TIME_MON
+mai	TIME_MON
+juin	TIME_MON
+juillet	TIME_MON
+aout	TIME_MON
+août	TIME_MON
+septembre	TIME_MON
+octobre	TIME_MON
+novembre	TIME_MON
+décembre	TIME_MON
+Noël	TIME_EVENT
+noël	TIME_EVENT
+Pâques	TIME_EVENT
+pâques	TIME_EVENT
+Carême	TIME_EVENT
+carême	TIME_EVENT
+Toussaint	TIME_EVENT
+toussaint	TIME_EVENT
+Ascension	TIME_EVENT
+ascension	TIME_EVENT
+Pentecôte	TIME_EVENT
+pentecôte	TIME_EVENT
+Halloween	TIME_EVENT
+halloween	TIME_EVENT
+mardi gras	TIME_EVENT
+nouvel an	TIME_EVENT
+jour de l' an	TIME_EVENT
+fête nationale	TIME_EVENT
+Chandeleur	TIME_EVENT
+chandeleur	TIME_EVENT
+Ascension	TIME_EVENT
+ascension	TIME_EVENT
+

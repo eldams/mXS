@@ -1,0 +1,200 @@
+deux	QUANT_CARD
+trois	QUANT_CARD
+quatre	QUANT_CARD
+cinq	QUANT_CARD
+six	QUANT_CARD
+sept	QUANT_CARD
+huit	QUANT_CARD
+neuf	QUANT_CARD
+dix	QUANT_CARD
+onze	QUANT_CARD
+douze	QUANT_CARD
+treize	QUANT_CARD
+quatorze	QUANT_CARD
+quinze	QUANT_CARD
+seize	QUANT_CARD
+dix-sept	QUANT_CARD
+dix-huit	QUANT_CARD
+dix-neuf	QUANT_CARD
+vingt	QUANT_CARD
+trente	QUANT_CARD
+quarante	QUANT_CARD
+cinquante	QUANT_CARD
+soixante	QUANT_CARD
+soixante-dix	QUANT_CARD
+quantre-vingt	QUANT_CARD
+quatre-vingt-dix	QUANT_CARD
+cent	QUANT_CARD
+dizaine	QUANT_MOD
+douzaine	QUANT_MOD
+quinzaine	QUANT_MOD
+vingtaine	QUANT_MOD
+trentaine	QUANT_MOD
+quarantaine	QUANT_MOD
+cinquantaine	QUANT_MOD
+soixantaine	QUANT_MOD
+centaine	QUANT_MOD
+beaucoup	QUANT_MOD
+plein	QUANT_MOD
+peu	QUANT_MOD
+moitié	QUANT_MOD
+tiers	QUANT_MOD
+quart	QUANT_MOD
+cinquième	QUANT_MOD
+dixième	QUANT_MOD
+vingtième	QUANT_MOD
+centième	QUANT_MOD
+millième	QUANT_MOD
+mille	QUANT_CARD
+millier	QUANT_CARD
+million	QUANT_CARD
+milliard	QUANT_CARD
+trilliard	QUANT_CARD
+fois	QUANT_MOD
+sous	QUANT_MOD
+moins	QUANT_MOD
+-	QUANT_MOD
+moins que	QUANT_MOD
+de moins en moins	QUANT_MOD
++	QUANT_MOD
+plus	QUANT_MOD
+plus que	QUANT_MOD
+plus qu' à	QUANT_MOD
+de plus en plus	QUANT_MOD
+quelque	QUANT_MOD
+quelque un	QUANT_MOD
+quelque un du	QUANT_MOD
+un certain nombre	QUANT_MOD
+en tout	QUANT_MOD
+exactement	QUANT_MOD
+précisément	QUANT_MOD
+environ	QUANT_MOD
+à peine	QUANT_MOD
+à peu près	QUANT_MOD
+presque	QUANT_MOD
+approximativement	QUANT_MOD
+pratiquement	QUANT_MOD
+en gros	QUANT_MOD
+grosso modo	QUANT_MOD
+à tout casser	QUANT_MOD
+seulement	QUANT_MOD
+au mieux	QUANT_MOD
+au moins	QUANT_MOD
+au pire	QUANT_MOD
+au pis	QUANT_MOD
+au plus	QUANT_MOD
+au bout de	QUANT_MOD
+pas tout à fait	QUANT_MOD
+de nombreux	QUANT_MOD
+peut-être	QUANT_MOD
+autour	QUANT_MOD
+autours	QUANT_MOD
+près	QUANT_MOD
+chaque	QUANT_MOD
+plusieurs	QUANT_MOD
+mètre	QUANT_UNIT
+cm	QUANT_UNIT
+centimètre	QUANT_UNIT
+mm	QUANT_UNIT
+millimètre	QUANT_UNIT
+mètre carré	QUANT_UNIT
+mètre-carré	QUANT_UNIT
+mètre cube	QUANT_UNIT
+mètre-cube	QUANT_UNIT
+centimètre	QUANT_UNIT
+kilomètre	QUANT_UNIT
+km	QUANT_UNIT
+kilomètres-heure	QUANT_UNIT
+kilomètres heure	QUANT_UNIT
+kilomètres par heure	QUANT_UNIT
+kilomètre heure	QUANT_UNIT
+km/h	QUANT_UNIT
+milles	QUANT_UNIT
+are	QUANT_UNIT
+hectare	QUANT_UNIT
+kilo	QUANT_UNIT
+kilog	QUANT_UNIT
+kg	QUANT_UNIT
+kilogramme	QUANT_UNIT
+gramme	QUANT_UNIT
+centigramme	QUANT_UNIT
+tonne	QUANT_UNIT
+litre	QUANT_UNIT
+L	QUANT_UNIT
+dL	QUANT_UNIT
+décilitre	QUANT_UNIT
+déci litre	QUANT_UNIT
+déci-litre	QUANT_UNIT
+cL	QUANT_UNIT
+centilitre	QUANT_UNIT
+centi litre	QUANT_UNIT
+centi-litre	QUANT_UNIT
+mL	QUANT_UNIT
+millilitre	QUANT_UNIT
+milli litre	QUANT_UNIT
+milli-litre	QUANT_UNIT
+hL	QUANT_UNIT
+hectolitre	QUANT_UNIT
+hecto litre	QUANT_UNIT
+hecto-litre	QUANT_UNIT
+W	QUANT_UNIT
+Watt	QUANT_UNIT
+kW	QUANT_UNIT
+kilo-Watt	QUANT_UNIT
+kilo Watt	QUANT_UNIT
+MW	QUANT_UNIT
+mega-Watt	QUANT_UNIT
+mega Watt	QUANT_UNIT
+gW	QUANT_UNIT
+giga-Watt	QUANT_UNIT
+giga Watt	QUANT_UNIT
+V	QUANT_UNIT
+Volt	QUANT_UNIT
+eV	QUANT_UNIT
+électron-Volt	QUANT_UNIT
+électron Volt	QUANT_UNIT
+J	QUANT_UNIT
+Joule	QUANT_UNIT
+kJ	QUANT_UNIT
+kilo-Joule	QUANT_UNIT
+kWh	QUANT_UNIT
+CV	QUANT_UNIT
+chevaux	QUANT_UNIT
+N	QUANT_UNIT
+Newton	QUANT_UNIT
+bit	QUANT_UNIT
+bits	QUANT_UNIT
+octet	QUANT_UNIT
+octets	QUANT_UNIT
+byte	QUANT_UNIT
+bytes	QUANT_UNIT
+kb	QUANT_UNIT
+Kb	QUANT_UNIT
+kilo bit	QUANT_UNIT
+kilo-bit	QUANT_UNIT
+Ko	QUANT_UNIT
+kilo octet	QUANT_UNIT
+kilo-octet	QUANT_UNIT
+Mb	QUANT_UNIT
+méga bit	QUANT_UNIT
+méga-bit	QUANT_UNIT
+Mo	QUANT_UNIT
+méga octet	QUANT_UNIT
+méga-octet	QUANT_UNIT
+Tb	QUANT_UNIT
+téra bit	QUANT_UNIT
+téra-bit	QUANT_UNIT
+To	QUANT_UNIT
+téra octet	QUANT_UNIT
+téra-octet	QUANT_UNIT
+bar	QUANT_UNIT
+millibar	QUANT_UNIT
+milli-bar	QUANT_UNIT
+milli bar	QUANT_UNIT
+°	QUANT_UNIT
+°C	QUANT_UNIT
+%	QUANT_UNIT
+celsius	QUANT_UNIT
+Celsius	QUANT_UNIT
+degré	QUANT_UNIT
+
