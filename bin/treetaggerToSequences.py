@@ -93,7 +93,7 @@ class DictionaryNode:
 				return self.applyDictionary(s, i + 1, f)
 		return {}
 
-# Dictionnaries (create dictionnary from Unitex : cat *.dic | iconv -f UTF-16LE -t UTF-8 | sed 's/\xEF\xBB\xBF//' | tr '\r' '\n' | sed -r '/^[ \t]*$/d' | sort | uniq)
+# Dictionnaries (create dictionnary from Unitex : cat *.dic | iconv -f UTF-16LE -t UTF-8 | sed 's/\xEF\xBB\xBF//' | tr '\r' '\n' | sed -E '/^[ \t]*$/d' | sort | uniq)
 dictionnaries = {}
 def readDictionary(filename, dictionaryCoding, dictionnaryMapping = None):
 	rootDictionaryNode = DictionaryNode()

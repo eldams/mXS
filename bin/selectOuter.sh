@@ -2,9 +2,9 @@
 
 lev=0
 sed 's/$/__NEWLINE__/g' |
-sed -r 's/<(_[^>]*)>/__TB__\1__TE__/g' |
-sed -r 's#<(/?NEc[^>]*)>#__TB__\1__TE__#g' |
-sed -r 's/(<[^>]*>)/\n\1\n/g' |
+sed -E 's/<(_[^>]*)>/__TB__\1__TE__/g' |
+sed -E 's#<(/?NEc[^>]*)>#__TB__\1__TE__#g' |
+sed -E 's/(<[^>]*>)/\n\1\n/g' |
 while read wrd; do
 	if [[ ${wrd:0:2} == '</' ]]; then
 		lev=`expr $lev - 1`
@@ -30,4 +30,4 @@ tr '\n' ' ' |
 sed 's/__TB__/</g' |
 sed 's/__TE__/>/g' |
 sed 's/__NEWLINE__/\n/g' |
-sed -r 's/ +/ /g'
+sed -E 's/ +/ /g'
