@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # Imports
-import sys, os, re, math, itertools
+import sys, os, re, math, itertools, time
 
 # Parameters
 modeDebug = False
@@ -10,8 +10,10 @@ modeSegmentals = os.environ.get('SMINER_SEGMENTAL')
 corpusTmp = os.environ.get('CORPUS_TMP')
 corpusModel = os.environ.get('CORPUS_MODEL')
 modeUniqFeatures = True
+modeBasicFeaturesBigrams = False
 modeSpecificRules = False
-hideNamabrFeature = True
+hideNamabrFeature = False
+hideLemmaFreqMin = False
 outputWapitiLexicalFeatures = True
 outputWapitiRulesFeatures = False
 outputWapitiCasenFeatures = False
@@ -28,10 +30,11 @@ learnAlgorithm = None
 probaConditionalSmooth = 1
 allowRootInSentence = True
 forceMarkers = False
-probaMinimum = 0.005 # Minimum probability cut-off
+probaMinimum = 0.001 # Minimum probability cut-off
 nBestSequences = 50 # Keep only n-best sequences for each token
 nBestHypothesis = 20 # Keep only n-best hypothesis after each token
 depthAllHypothesis = 3 # No n-best cut-off for this level of annotation (1 = root)
+discountLength = False
 
 # Argument paramters
 arguments = sys.argv[:]
@@ -84,7 +87,13 @@ annotationRoot = 'none'
 annotationChildren = None
 annotationFormat = os.environ.get('ANNOTATION_FORMAT')
 annotationSelect = os.environ.get('SELECT_SCRIPT')
-if annotationFormat == 'Etape':
+mxsProbaMin = os.environ.get('MXS_PROBAMIN')
+if mxsProbaMin:
+	probaMinimum = float(mxsProbaMin)
+if annotationFormat == 'Etape' and annotationSelect and (annotationSelect.endswith('selectOuterPLO.sh') or annotationSelect.endswith('selectOuterPLO.py')):
+	annotationChildren = {annotationRoot: '*'}
+	probaMinimum = 0.05
+elif annotationFormat == 'Etape':
 	annotationEtapeEntites = ['event', 'pers.ind', 'pers.coll', 'time.date.abs', 'time.date.rel', 'time.hour.abs', 'time.hour.rel', 'loc.oro', 'loc.fac', 'loc.unk', 'loc.add.phys', 'loc.add.elec', 'loc.adm.town', 'loc.adm.reg', 'loc.adm.nat', 'loc.adm.sup', 'loc.phys.geo', 'loc.phys.hydro', 'loc.phys.astro', 'prod.object', 'prod.art', 'prod.media', 'prod.fin', 'prod.award', 'prod.serv', 'prod.doctr', 'prod.rule', 'prod.other', 'func.ind', 'func.coll', 'func.unk', 'org.ent', 'org.adm', 'amount']
 	annotationEtapeComponentsTransverse = ['name', 'name.nickname', 'kind', 'extractor', 'demonym', 'demonym.nickname', 'qualifier', 'val', 'unit', 'range-mark', 'object']
 	annotationEtapeComponentsSpecific = {
@@ -111,6 +120,8 @@ if annotationFormat == 'Etape':
 				for entityTypePrefix in annotationEtapeComponentsSpecific:
 					if entity.startswith(entityTypePrefix):
 						annotationChildren[entity].extend(annotationEtapeComponentsSpecific[entityTypePrefix])
+elif annotationFormat == 'CoNLL2003':
+	annotationChildren = {annotationRoot: '*'}
 
 # Load MaxEnt models
 maxEntModelMarkersB = None
@@ -267,7 +278,7 @@ class RuleNode:
 			self.childrens[children] = RuleNode(children)
 		return self.childrens[children]
 
-# Class rule node
+# Class rule node match
 class RuleNodeMatch:
 	def __init__(self, node = None, parent = None):
 		self.node = node
@@ -375,10 +386,21 @@ def calculateProbaFromMarkers(priorProba, markers, noRootProba = False):
 	return proba
 
 # Function to retrieve rule features
+previousFeatures = None
+dicoFreqs = None
+dicoFreqMin = 2
+if hideLemmaFreqMin and annotationFormat == 'CoNLL2003':
+	dicoFreqs = {}
+	for line in open(os.environ['DICOS_PATH']+'/CoNLL-train.freqs'):
+		(token, freq) = line.strip().split('\t')
+		dicoFreqs[token] = int(freq)
 def getBasicFeatures(inc = None, chunk = None, lexical = None, pos = None, lemma = None, token = None, columnFeatures = False):
+	global previousFeatures
 	posParts = pos.split('/')
-	if hideNamabrFeature and posParts[0] == 'NAMABR':
-		lemma = 'NAMABR'
+	if hideNamabrFeature and posParts[0] in ['NAMABR', 'NNP']:
+		lemma = posParts[0]
+	if dicoFreqs and (token not in dicoFreqs or dicoFreqs[token] < hideLemmaFreqMin):
+		lemma = 'UNK'
 	if columnFeatures:
 		pos1 = posParts[0]
 		pos2 = 'NOPOS'
@@ -387,7 +409,12 @@ def getBasicFeatures(inc = None, chunk = None, lexical = None, pos = None, lemma
 			pos2 = '/'.join(posParts[:2])
 			if posParts > 2:
 				pos3 = '/'.join(posParts[:3])
-		return [lemma, pos1, pos2, pos3, lexical]
+		currentFeatures = [lemma, pos1, pos2, pos3, lexical]
+		if not previousFeatures:
+			previousFeatures = ['-', '-', '-', '-', '-']
+		returnFeatures = previousFeatures.extend(currentFeatures)
+		previousFeatures = currentFeatures
+		return returnFeatures
 	else:
 		features = ['LEM_'+lemma]
 		for i in range(0, len(posParts)):
@@ -395,7 +422,16 @@ def getBasicFeatures(inc = None, chunk = None, lexical = None, pos = None, lemma
 		for lexicalPart in lexical.split('+'):
 			if lexicalPart != '-':
 				features.append('LEX_'+lexicalPart)
-		return features
+		returnFeatures = []
+		if previousFeatures:
+			returnFeatures.extend(['P_'+feature for feature in previousFeatures])
+			if modeBasicFeaturesBigrams:
+				for feature in features:
+					for previousFeature in previousFeatures:
+						returnFeatures.append('P_'+previousFeature+'_C_'+feature)
+		returnFeatures.extend(['C_'+feature for feature in features])
+		previousFeatures = features
+		return returnFeatures
 
 # Function to retrieve rule features
 def getRuleFeatures(ruleMarkers = None, columnFeatures = False):
@@ -459,6 +495,20 @@ def getCasenFeatures(casenMarkers = None):
 				casenFeatures[casenFeaturePrefix+casenMarkerParts[i]] = True
 				casenFeatures[casenFeaturePrefix+'.'.join(casenMarkerParts[0:i+1])] = True
 	return casenFeatures.keys()
+
+# Function to retrieve StanfordNER features
+def getStanfordNERFeatures(stanfordNERMarkers = None):
+	stanfordNERFeatures = {}
+	for stanfordNERMarker in stanfordNERMarkers:
+		stanfordNERFeatures = {}
+		if stanfordNERMarker[5] == '/':
+			stanfordNERPrefix = 's_-'
+			stanfordNERMarker = stanfordNERMarker[10:-1]
+		else:
+			stanfordNERPrefix = 's_+'
+			stanfordNERMarker = stanfordNERMarker[9:-1]
+		stanfordNERFeatures[stanfordNERPrefix+stanfordNERMarker] = True
+	return stanfordNERFeatures.keys()
 
 # Function to retrieve CasEN short markers
 def getCasenForcedMarkers(casenMarkers = None):
@@ -683,6 +733,7 @@ for sentence in sys.stdin:
 	if modeDebug:
 		print '\nSentence:', sentence
 	sentenceItems = []
+	sentenceInfos = {}
 	sentenceInc = {}
 	sentenceChunk = {}
 	sentenceLexical = {}
@@ -694,6 +745,7 @@ for sentence in sys.stdin:
 	sentenceMarkers = {}
 	sentenceRuleMarkers = {}
 	sentenceCasenMarkers = {}
+	sentenceStanfordNERMarkers = {}
 	sentenceShortMarkerProbas = {}
 	sentenceSequenceMarkerProbas = {}
 	shortMarkerProbas = {}
@@ -726,10 +778,14 @@ for sentence in sys.stdin:
 			# If CasEN marker token, store it as a feature
 			elif re.match('NEc/</?NEc-[^>]*>', token):
 				createOrAppendDictList(sentenceCasenMarkers, itemIndex, token)
+			# If StanfordNER marker token, store it as a feature
+			elif re.match('NEs/</?NEs-[^>]*>', token):
+				createOrAppendDictList(sentenceStanfordNERMarkers, itemIndex, token)
 			# If other token, select corresponding rules
 			else:
 				# Stores token, POS
 				sentenceItems.append(token)
+				sentenceInfos[itemIndex] = token
 				tokenParts = []
 				while token:
 					tokenMatches = re.match('(([^/]|</|/>)*)/(.*)', token)
@@ -739,12 +795,20 @@ for sentence in sys.stdin:
 					else:
 						tokenParts.append(token)
 						token = False
-				sentenceChunk[itemIndex] = tokenParts[0]
-				sentenceInc[itemIndex] = tokenParts[1]
-				sentenceLexical[itemIndex] = tokenParts[2]
-				sentenceLemmas[itemIndex] = tokenParts[-2]
-				sentenceTokens[itemIndex] = tokenParts[-1]
-				sentencePOS[itemIndex] = '/'.join(tokenParts[3:-2])
+				if annotationFormat == 'CoNLL2003':
+					sentenceChunk[itemIndex] = tokenParts[0]
+					sentenceInc[itemIndex] = '-'
+					sentenceLexical[itemIndex] = tokenParts[1]
+					sentenceLemmas[itemIndex] = tokenParts[-1]
+					sentenceTokens[itemIndex] = tokenParts[-1]
+					sentencePOS[itemIndex] = '/'.join(tokenParts[2:-1])
+				else:
+					sentenceChunk[itemIndex] = tokenParts[0]
+					sentenceInc[itemIndex] = tokenParts[1]
+					sentenceLexical[itemIndex] = tokenParts[2]
+					sentenceLemmas[itemIndex] = tokenParts[-2]
+					sentenceTokens[itemIndex] = tokenParts[-1]
+					sentencePOS[itemIndex] = '/'.join(tokenParts[3:-2])
 				# Search rules
 				newRuleNodeMatches = {}
 				tokenParts = filter(lambda tokenPart: tokenPart != '-', tokenParts)
@@ -814,7 +878,7 @@ for sentence in sys.stdin:
 				print '-------------------------------'
 				print 'Resolve token', ri, ':',
 				if ri in sentenceTokens:
-					print sentenceTokens[ri], '(', sentencePOS[ri], ')'
+					print sentenceTokens[ri], '(', sentenceInfos[ri], ')'
 				else:
 					print '(end sentence)'
 				if ri in sentenceMarkers:
@@ -887,6 +951,8 @@ for sentence in sys.stdin:
 						learnFeatures.extend(getRuleFeatures(sentenceRuleMarkers[ri]))
 					if ri in sentenceCasenMarkers:
 						learnFeatures.extend(getCasenFeatures(sentenceCasenMarkers[ri]))
+					if ri in sentenceStanfordNERMarkers:
+						learnFeatures.extend(getStanfordNERFeatures(sentenceStanfordNERMarkers[ri]))
 					if modeDebugVerbose:
 						print 'Local features:', learnFeatures
 				# Dynamic programming for prediction
@@ -959,7 +1025,10 @@ for sentence in sys.stdin:
 							shortMarkerProbas[idShortMarkers[i + 1]] = modelMarkerProbas[i]
 						modelSequenceProbas = sciKitModelSequences.predict_proba([modelMarkerProbas])[0]
 						for i in range(len(modelSequenceProbas)):
-							sequenceMarkerProbas[idSequenceMarkers[i + 1]] = modelSequenceProbas[i]
+							sequence = idSequenceMarkers[i + 1]
+							proba = modelSequenceProbas[i]
+							if sequence == '=' or proba > probaMinimum:
+								sequenceMarkerProbas[sequence] = proba
 					if learnMode and learnAlgorithm in ['MaxEntBin', 'SciKitBin']:
 						if learnAlgorithm == 'MaxEntBin':
 							for marker in maxEntModelMarkers:
@@ -1090,6 +1159,13 @@ for sentence in sys.stdin:
 							for categoryPath in annotationHypothesis:
 								print '-', categoryPath, ':', annotationHypothesis[categoryPath]
 					# If threshold to keep best hypothesis apply
+					if discountLength:
+						for categoryPath, hypothesis in annotationHypothesis.items():
+							if categoryPath != '/' and len(hypothesis.markerIndexes):
+								lastMarkerIndex = max(hypothesis.markerIndexes)
+								if ri > lastMarkerIndex:
+									hypothesis.lproba += math.log(10.0/(10 + ri - lastMarkerIndex))
+					# If threshold to keep best hypothesis apply
 					if nBestHypothesis and len(annotationHypothesis) > nBestHypothesis:
 						newAnnotationHypothesis = {}
 						nHypothesis = 0
@@ -1152,6 +1228,8 @@ for sentence in sys.stdin:
 			output.append(' '.join(closingMarkers))
 			if i in sentenceCasenMarkers:
 				output.append(' '.join(sentenceCasenMarkers[i]))
+			if i in sentenceStanfordNERMarkers:
+				output.append(' '.join(sentenceStanfordNERMarkers[i]))
 			if i in sentenceEscapes:
 				output.append(' '.join(sentenceEscapes[i]))
 			output.append(' '.join(openingMarkers))
@@ -1283,6 +1361,8 @@ for sentence in sys.stdin:
 						transitionMarkerIds = []
 						for transitionMarker in transitionMarkers:
 							transitionMarkerIds.append(getShortMarkerId(transitionMarker))
+						if modeDebug:
+							print '\t'.join(['/'.join(transitionMarkers), '\t'.join(features)])
 						print '\t'.join([getSequenceMarkerId('/'.join(transitionMarkers)), ','.join(transitionMarkerIds), '\t'.join([str(getFeatureId(feature)) for feature in features])])
 # Adds mined patterns as features for Wapiti
 if learnMode == 'train' and learnAlgorithm == 'Wapiti':
