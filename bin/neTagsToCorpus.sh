@@ -7,12 +7,12 @@ sed -E 's| +| |g' |
 sed -E 's|NEW/(NE/</?NE)|\1m|g' |
 # Recover original data format
 sed -E 's/(<_n|n_>)//g' |
-sed -E 's|<_b|\n|g' |
+sed -e 's|<_b|\'$'\n|g' |
 sed -E 's|<_t|<|g' |
 sed -E 's|t_>|>|g' |
 sed -E 's|<_c|[|g' |
 sed -E 's|c_>|]|g' |
-sed -E 's#( |^)[^ \n]*[^<]/([^/ \n]*)#\1\2#g' |
+sed -E 's#( |^)[^ ]*[^<]/([^/ ]*)#\1\2#g' |
 sed -E 's|MXS_SLASH|/|g' |
 sed -E 's|MXS_PLUS|+|g' |
 sed -E 's|MXS_DASH|-|g' |
@@ -24,4 +24,5 @@ sed -E "s| ' |' |g" |
 grep -v '^$' |
 sed -E 's/^ +//g' |
 sed -E 's/  +/ /g'
+
 

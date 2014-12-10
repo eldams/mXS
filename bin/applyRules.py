@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Imports
 import sys, os, re, math, itertools, time
@@ -103,7 +104,7 @@ elif annotationFormat == 'Etape':
 		'func.ind': ['org.adm', 'org.ent'],
 		'org.adm': ['loc.adm.nat'],
 		'org.ent': ['loc.adm.nat', 'loc.adm.town'],
-		'title': ['func.ind'],	
+		'title': ['func.ind'],
 		'func.coll': ['org.ent'],
 		'object': ['func.coll', 'pers.coll'],
 	}
@@ -169,6 +170,7 @@ if learnAlgorithm in ['SciKit', 'SciKitBin'] and learnMode in ['label', 'held']:
 		import sequence_classifier
 		sciKitModelSequences = pickle.load(open(corpusModel + '/model_sequences.txt', 'rb'))
 	else:
+		from sklearn import linear_model
 		sciKitModelMarkers = {}
 		for marker in idShortMarkers.values():
 			sciKitModelMarkers[marker] = pickle.load(open(corpusModel + '/model_' + marker + '.txt', 'rb'))

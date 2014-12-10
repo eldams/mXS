@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Imports
 import sys, os, pickle, numpy, math
@@ -112,7 +113,7 @@ else:
 	print ' - prepare classifier for', learnAlgo
 	markersClassifier = None
 	if learnAlgo == 'LogisticRegression':
-		#markersClassifier = linear_model.LogisticRegression(C=nbMarkers, penalty='l1', class_weight=classWeights) 
+		#markersClassifier = linear_model.LogisticRegression(C=nbMarkers, penalty='l1', class_weight=classWeights)
 		markersClassifier = linear_model.LogisticRegression()
 		markerFeaturesSet = markerFeaturesSet.tocsr()
 	elif learnAlgo == 'SVM':
