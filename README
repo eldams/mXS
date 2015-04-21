@@ -39,7 +39,7 @@ You may want to only tag texts. In that case, provide the correct path for TreeT
 
 Source this file and the the configuration for the NER model (learned for French over Etape corpus http://www.afcp-parole.org/etape.html):
 $ . ./bin/conf_machineExample.sh
-$ . ./bin/conf_conf_EtapeModel.sh
+$ . ./bin/conf_EtapeModel.sh
 
 Try to tag a text (be patient, loading models may take a few minutes), e.g.:
 $ echo "Le président Barack Obama a été en Afrique du Sud le 30 juillet 2013." | ./bin/tagSciKit.sh
@@ -48,7 +48,7 @@ For learning models over a specific corpus (and testing it), you'll advanced con
 $ make clean && make
 
 Adapt configuration directives in:
-- bin/conf_DatasetExample.sh 
+- bin/conf_DatasetExample.sh
 
 As previously, source configuration files:
 $ . ./bin/conf_machineExample.sh
