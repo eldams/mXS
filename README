@@ -1,16 +1,14 @@
 Description :
 -------------
 
-sminer extracts all sequences having a frequency greater than or equal to a minimum threshhold. Target (objective) items may be searched according to a confidence threshold and outputed (as "annotation rules").
+mXS is a basically a general software to automatically annotate segments in sequences when a training corpus is provided. In practice, it is here available as a French NER tagger.
 
-Items may be form a hierarchy (subs) : then specialisation is indicated using "/" operator (e.g. if A/B and A/C are two items, and both subtypes of A). The hierarchy may be a forest. Take care not to mix targets and none targets within same tree.
+It is currently working out of the box for French, but has been also successfully been tested for English (near state of the art performances) and German (still some work needed to improve performance). Please send an email if you wish support for these languages or intend to train for another language.
 
-Patterns of identical frequencies which are generalization one of each other are grouped together, and only maximal (or minimal) patterns are to be extracted.
-
-Tagging French NEs using Etape model for lazy people:
+Tagging French NEs using ETAPE model for lazy people:
 -----------------------------------------------------
 
-Install Treetagger on your machine and set its path in:
+Install Treetagger on your machine and set configure its path (comment out and set the TREETAGGER_PATH variable) in:
 - bin/conf_machineExample.sh
 
 Using command line, go into mxs root directory, and try (you'll have to wait a minute for lexicons to be loaded):
@@ -44,7 +42,7 @@ $ . ./bin/conf_EtapeModel.sh
 Try to tag a text (be patient, loading models may take a few minutes), e.g.:
 $ echo "Le président Barack Obama a été en Afrique du Sud le 30 juillet 2013." | ./bin/tagSciKit.sh
 
-For learning models over a specific corpus (and testing it), you'll advanced configuration. Make the pattern extractor:
+For learning models over a specific corpus (and testing it), you'll need more configuration... first, compile the pattern extractor:
 $ make clean && make
 
 Adapt configuration directives in:
@@ -63,5 +61,13 @@ Hopefully, the script testCorpus.sh is human-readable. In a few words, it should
 3 Learn regression models using scikit-learn
 4 Use models to tag test corpus
 
-Ok, this is very minimal. Much more to come sooner or later, with an examplified dataset...
+Ok, this is very minimal. Much more to come, sooner or later, dependending on requests, with an examplified dataset...
 
+Pattern extractor:
+------------------
+
+sminer extracts all sequences having a frequency greater than or equal to a minimum threshhold. Target (objective) items may be searched according to a confidence threshold and outputed (as "annotation rules").
+
+Items may be form a hierarchy (subs) : then specialisation is indicated using "/" operator (e.g. A/B and A/C are two items in data, and both are subtypes of A). The hierarchy may be a forest. Take care not to mix targets and none targets within same tree.
+
+Patterns of identical frequencies which are generalization one of each other are grouped together, and only maximal (or minimal) patterns are to be extracted.
