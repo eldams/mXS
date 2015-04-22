@@ -71,3 +71,18 @@ sminer extracts all sequences having a frequency greater than or equal to a mini
 Items may be form a hierarchy (subs) : then specialisation is indicated using "/" operator (e.g. A/B and A/C are two items in data, and both are subtypes of A). The hierarchy may be a forest. Take care not to mix targets and none targets within same tree.
 
 Patterns of identical frequencies which are generalization one of each other are grouped together, and only maximal (or minimal) patterns are to be extracted.
+
+Reference:
+----------
+
+If you use this software, please do cite:
+
+Pattern Mining for Named Entity Recognition. Damien Nouvel, Jean-Yves Antoine, Nathalie Friburger. LNCS/LNAI Series volume 8387i (post-proceedings LTC 2011), 2014.
+
+@article{PatternMiningNER_NouvelAntoineFriburger,
+  author = {Damien Nouvel and Jean-Yves Antoine and Nathalie Friburger},
+  title = {Pattern Mining for Named Entity Recognition},
+  journal = {LNCS/LNAI Series},
+  year = {2014},
+  volume = {8387i (post-proceedings LTC 2011)}
+}
