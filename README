@@ -1,7 +1,7 @@
 Description :
 -------------
 
-mXS is a basically a general software to automatically annotate segments in sequences when a training corpus is provided. In practice, it is here available as a French NER tagger.
+mXS is basically a generic software that can learn patterns to automatically annotate segments in sequences (text) when a training corpus is provided. In practice, here is provided a model as a French NER tagger.
 
 It is currently working out of the box for French, but has been also successfully been tested for English (near state of the art performances) and German (still some work needed to improve performance). Please send an email if you wish support for these languages or intend to train for another language.
 
