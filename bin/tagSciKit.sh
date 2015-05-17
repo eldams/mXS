@@ -10,4 +10,3 @@ $MXS_BIN/applyRules.py $applyoption $CORPUS_MODEL/patterns.txt |
 $CORPUS_MERGE_SCRIPT |
 $CORPUS_OUTPUT_SCRIPT |
 $CORPUS_DATA_SCRIPT
-
