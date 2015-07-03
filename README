@@ -88,3 +88,23 @@ Pattern Mining for Named Entity Recognition. Damien Nouvel, Jean-Yves Antoine, N
   year = {2014},
   volume = {8387i (post-proceedings LTC 2011)}
 }
+
+Debugging mXS:
+--------------
+
+In case something goes wrong, you'll probably want to locate the problem. Here are some instruction that may help.
+Indeed, check your numpy, scipy, scikit installations (try an import at Python CLI).
+
+Then source configuration files :
+$ . ./bin/conf_machineExample.sh
+$ . ./bin/conf_EtapeModel.sh
+
+Execute those commands to see at what stage you have a problem (be patient, $SEQUENCE_SCRIPT may load many lexicon) :
+$ sentence="Le président Barack Obama"
+$ echo $sentence | $DATA_CORPUS_SCRIPT
+$ echo $sentence | $DATA_CORPUS_SCRIPT | $PREPROCESS_SCRIPT
+$ echo $sentence | $DATA_CORPUS_SCRIPT | $PREPROCESS_SCRIPT | $SEQUENCE_SCRIPT
+$ echo $sentence | $DATA_CORPUS_SCRIPT | $PREPROCESS_SCRIPT | $SEQUENCE_SCRIPT | $MXS_BIN/applyRules.py -slb $CORPUS_MODEL/patterns.txt
+ $ echo $sentence | $DATA_CORPUS_SCRIPT | $PREPROCESS_SCRIPT | $SEQUENCE_SCRIPT | $MXS_BIN/applyRules.py -slb $CORPUS_MODEL/patterns.txt | $CORPUS_MERGE_SCRIPT
+$ echo $sentence | $DATA_CORPUS_SCRIPT | $PREPROCESS_SCRIPT | $SEQUENCE_SCRIPT | $MXS_BIN/applyRules.py -slb $CORPUS_MODEL/patterns.txt | $CORPUS_MERGE_SCRIPT | $CORPUS_OUTPUT_SCRIPT
+$ echo $sentence | $DATA_CORPUS_SCRIPT | $PREPROCESS_SCRIPT | $SEQUENCE_SCRIPT | $MXS_BIN/applyRules.py -slb $CORPUS_MODEL/patterns.txt | $CORPUS_MERGE_SCRIPT | $CORPUS_OUTPUT_SCRIPT | $CORPUS_DATA_SCRIPT
