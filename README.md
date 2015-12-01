@@ -28,9 +28,9 @@ echo "Le président Barack Obama a été à Dakar, au Sénégal, en juin 2013." 
 
 This command should output the folllowing full annotation, with components:
 
-```xml
+`
 Le <func> président </func> <pers> Barack Obama </pers> a été à <loc> Dakar </loc> , au <loc> Sénégal </loc> , en juin 2013 .
-```
+`
 
 This model only provides PERS, LOC, ORG, FUNC entities (see below for fine-grained annotation). See my paper un the reference below for more information about annotation process, resources used, evaluation of accuracy (which indeed varies much depending on the quality of provided data), etc.
 
