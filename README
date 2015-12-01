@@ -1,5 +1,6 @@
-Description :
--------------
+# README
+
+## Description :
 
 mXS is basically a generic software that can learn patterns to automatically annotate segments in sequences (text) when a training corpus is provided. In practice, here is provided a model as a French NER tagger.
 
@@ -9,8 +10,7 @@ This software requires:
 - TreeTagger : http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger
 - scikit-learn : http://scikit-learn.org/stable/
 
-Tagging French NEs using ETAPE model for lazy people:
------------------------------------------------------
+## Tagging French NEs using ETAPE model for lazy people:
 
 Configure TreeTagger path for mXS : comment out and set the TREETAGGER_PATH variable in file:
 - bin/conf_machineExample.sh
@@ -25,8 +25,7 @@ Le <func> président </func> <pers> Barack Obama </pers> a été à <loc> Dakar 
 
 This model only provides PERS, LOC, ORG, FUNC entities (see below for fine-grained annotation). See my paper un the reference below for more information about annotation process, resources used, evaluation of accuracy (which indeed varies much depending on the quality of provided data), etc.
 
-Obtaining fine-grained annotation:
-----------------------------------
+## Obtaining fine-grained annotation:
 
 The Etape project also provides fine-grained and structured annotation of named entities. You may also use this model, at the cost of a much solower annotation process. 
 $ echo "Le président Barack Obama a été à Dakar, au Sénégal, en juin 2013." | ./bin/tagEtapeModel.sh
@@ -34,8 +33,7 @@ $ echo "Le président Barack Obama a été à Dakar, au Sénégal, en juin 2013.
 This command should output the folllowing full annotation, with components:
 Le <func.ind> <kind> président </kind> </func.ind> <pers.ind> <name.first> Barack </name.first> <name.last> Obama </name.last> </pers.ind> a été à <loc.adm.town> <name> Dakar </name> </loc.adm.town> , au <loc.adm.nat> <name> Sénégal </name> </loc.adm.nat> , en juin 2013 .
 
-(Very) Short how-to :
----------------------
+## (Very) Short how-to :
 
 This is an alpha release and I advise to contact me for installation / configuration / usage. My current problems are the availability of corpora for French, and adaptations of preprocessings (TreeTagger) for English. Anyway, let's write a very quick start guide.
 
@@ -70,8 +68,7 @@ Hopefully, the script testCorpus.sh is human-readable. In a few words, it should
 
 Ok, this is very minimal. Much more to come, sooner or later, dependending on requests, with an examplified dataset...
 
-Pattern extractor:
-------------------
+## Pattern extractor:
 
 sminer extracts all sequences having a frequency greater than or equal to a minimum threshhold. Target (objective) items may be searched according to a confidence threshold and outputed (as "annotation rules").
 
@@ -79,8 +76,16 @@ Items may be form a hierarchy (subs) : then specialisation is indicated using "/
 
 Patterns of identical frequencies which are generalization one of each other are grouped together, and only maximal (or minimal) patterns are to be extracted.
 
-Reference:
-----------
+## Providing text with other non-analyzable input (XML, HTML, comments, etc.):
+
+A common but under-handled problem in NLP is the possibility to melt text and other non-analyzable input. For instance, if you have HTLM file, you want the software to analyze text without looking at tags. mXS does partially support this by avoiding to analyze anything that is between "<_n" and "n_>" (and output it as it is).
+
+Other replacements are available:
+- "<_b" will be replaced by a new line (e.g. you can add "<_bn_>" to create a new line in output),
+- "<_t" and "t_>" will ignore contained text and be replaced in output by "<" and ">"
+- same thing for "<_c" and "c_>": ignores contained text and replace it by "]" and "]"
+
+## Reference:
 
 If you use this software, please do cite:
 
@@ -94,8 +99,7 @@ Pattern Mining for Named Entity Recognition. Damien Nouvel, Jean-Yves Antoine, N
   volume = {8387i (post-proceedings LTC 2011)}
 }
 
-Debugging mXS:
---------------
+## Debugging mXS:
 
 In case something goes wrong, you'll probably want to locate the problem. Here are some instruction that may help.
 Indeed, check your numpy, scipy, scikit installations (try an import at Python CLI).
