@@ -27,7 +27,8 @@ echo "Le président Barack Obama a été à Dakar, au Sénégal, en juin 2013." 
 ```
 
 This command should output the folllowing full annotation, with components:
-```bash
+
+```xml
 Le <func> président </func> <pers> Barack Obama </pers> a été à <loc> Dakar </loc> , au <loc> Sénégal </loc> , en juin 2013 .
 ```
 
@@ -35,7 +36,7 @@ This model only provides PERS, LOC, ORG, FUNC entities (see below for fine-grain
 
 ## Obtaining fine-grained annotation:
 
-The Etape project also provides fine-grained and structured annotation of named entities. You may also use this model, at the cost of a much solower annotation process. 
+The Etape project also provides fine-grained and structured annotation of named entities. You may also use this model, at the cost of a much solower annotation process.
 ```bash
 echo "Le président Barack Obama a été à Dakar, au Sénégal, en juin 2013." | ./bin/tagEtapeModel.sh
 ```
