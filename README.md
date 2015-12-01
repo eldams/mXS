@@ -43,6 +43,7 @@ echo "Le président Barack Obama a été à Dakar, au Sénégal, en juin 2013." 
 
 This command should output the folllowing full annotation, with components:
 
+
 `
 Le <func.ind> <kind> président </kind> </func.ind> <pers.ind> <name.first> Barack </name.first> <name.last> Obama </name.last> </pers.ind> a été à <loc.adm.town> <name> Dakar </name> </loc.adm.town> , au <loc.adm.nat> <name> Sénégal </name> </loc.adm.nat> , en juin 2013 .
 `
