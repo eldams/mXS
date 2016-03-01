@@ -48,6 +48,12 @@ You can now execute mXS script from anywhere using this variable as a prefix:
 echo "Un test avec François Hollande en visite à Toulouse." | $MXS_PATH/bin/tagEtapeModelPLOP.sh
 ```
 
+This command outputs:
+
+`
+Un test avec <pers> François Hollande </pers> en visite à <loc> Toulouse </loc> .
+`
+
 ## Obtaining fine-grained annotation:
 
 The Etape project also provides fine-grained and structured annotation of named entities. You may also use this model, at the cost of a much solower annotation process.
