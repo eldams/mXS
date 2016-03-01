@@ -34,6 +34,20 @@ Le <func> président </func> <pers> Barack Obama </pers> a été à <loc> Dakar 
 
 This model only provides PERS, LOC, ORG, FUNC entities (see below for fine-grained annotation). See my paper un the reference below for more information about annotation process, resources used, evaluation of accuracy (which indeed varies much depending on the quality of provided data), etc.
 
+## Executing mXS from other locations
+
+It is more convenient to be able to execute mXS from other locations than its own path. For that purpose, you just need to define MXS_PATH environment variable (e.g. in command line, in your script or in .bashrc file):
+
+```bash
+export MXS_PATH=/Users/damien/Applications/mXS
+```
+
+You can now execute mXS script from anywhere using this variable as a prefix:
+
+```bash
+echo "Un test avec François Hollande en visite à Toulouse." | $MXS_PATH/bin/tagEtapeModelPLOP.sh
+```
+
 ## Obtaining fine-grained annotation:
 
 The Etape project also provides fine-grained and structured annotation of named entities. You may also use this model, at the cost of a much solower annotation process.
