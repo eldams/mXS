@@ -39,7 +39,7 @@ This model only provides PERS, LOC, ORG, FUNC entities (see below for fine-grain
 It is more convenient to be able to execute mXS from other locations than its own path. For that purpose, you just need to define MXS_PATH environment variable (e.g. in command line, in your script or in .bashrc file):
 
 ```bash
-export MXS_PATH=/Users/damien/Applications/mXS
+export MXS_PATH=/mypath/to/folderof/mxs
 ```
 
 You can now execute mXS script from anywhere using this variable as a prefix:
