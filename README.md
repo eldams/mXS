@@ -57,7 +57,7 @@ Un test avec <pers> François Hollande </pers> en visite à <loc> Toulouse </loc
 It is indeed possible to use mXS on a stream (e.g. corpus file) by redirecting input / output, for example:
 
 ```bash
-cat corpus.txt | $MXS_PATH/bin/tagEtapeModelPLOP.sh > corpus.tagged.txt
+cat corpus.txt | $MXS_PATH/bin/tagEtapeModelPLOP.sh > corpus-tagged.txt
 ```
 
 ## Obtaining fine-grained annotation:
