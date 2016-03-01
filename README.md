@@ -34,7 +34,7 @@ Le <func> président </func> <pers> Barack Obama </pers> a été à <loc> Dakar 
 
 This model only provides PERS, LOC, ORG, FUNC entities (see below for fine-grained annotation). See my paper un the reference below for more information about annotation process, resources used, evaluation of accuracy (which indeed varies much depending on the quality of provided data), etc.
 
-## Executing mXS from other locations
+## Executing mXS from any location
 
 It is more convenient to be able to execute mXS from other locations than its own path. For that purpose, you just need to define MXS_PATH environment variable (e.g. in command line, in your script or in .bashrc file):
 
@@ -53,6 +53,12 @@ This command outputs:
 `
 Un test avec <pers> François Hollande </pers> en visite à <loc> Toulouse </loc> .
 `
+
+It is indeed possible to use mXS on a stream (e.g. corpus file) by redirecting input / output, for example:
+
+```bash
+cat corpus.txt | $MXS_PATH/bin/tagEtapeModelPLOP.sh > corpus.tagged.txt
+```
 
 ## Obtaining fine-grained annotation:
 
