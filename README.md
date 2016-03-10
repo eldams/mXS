@@ -26,13 +26,13 @@ Using command line, go into mxs root directory, and try (you'll have to wait a m
 echo "Le président Barack Obama a été à Dakar, au Sénégal, en juin 2013." | ./bin/tagEtapeModelPLOP.sh
 ```
 
-This command should output the folllowing full annotation, with components:
+This command should output the folllowing annotation:
 
 `
 Le <func> président </func> <pers> Barack Obama </pers> a été à <loc> Dakar </loc> , au <loc> Sénégal </loc> , en juin 2013 .
 `
 
-This model only provides PERS, LOC, ORG, FUNC entities (see below for fine-grained annotation). See my paper un the reference below for more information about annotation process, resources used, evaluation of accuracy (which indeed varies much depending on the quality of provided data), etc.
+This model only provides PERS, LOC, ORG, FUNC entities (see below for fine-grained annotation). See my paper below for more information about annotation process, resources used, evaluation of accuracy (which indeed varies much depending on the quality of provided data), etc.
 
 ## Executing mXS from any location
 
