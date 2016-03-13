@@ -4,4 +4,5 @@ bin/sminer
 bin/conf_khoikhoi.sh
 bin/conf_iroquois.sh
 bin/*.pyc
+.DS_Store
 
