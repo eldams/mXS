@@ -1,6 +1,6 @@
-# README
+# mXS
 
-## Description :
+## Description
 
 mXS is basically a generic software that can learn patterns to automatically annotate segments in sequences (text) when a training corpus is provided. In practice, here is provided a model as a French NER tagger.
 
@@ -10,7 +10,7 @@ This software requires:
 - TreeTagger : http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger
 - scikit-learn : http://scikit-learn.org/stable/
 
-## Tagging French NEs using ETAPE model for lazy people:
+## Tagging French NEs using ETAPE model for lazy people
 
 Configure TreeTagger path for mXS : comment out and set the TREETAGGER_PATH variable in file:
 ```bash
@@ -60,7 +60,7 @@ It is indeed possible to use mXS on a stream (e.g. corpus file) by redirecting i
 cat corpus.txt | $MXS_PATH/bin/tagEtapeModelPLOP.sh > corpus-tagged.txt
 ```
 
-## Obtaining fine-grained annotation:
+## Obtaining fine-grained annotation
 
 The Etape project also provides fine-grained and structured annotation of named entities. You may also use this model, at the cost of a much solower annotation process.
 ```bash
@@ -73,7 +73,7 @@ This command should output the folllowing full annotation, with components:
 Le <func.ind> <kind> président </kind> </func.ind> <pers.ind> <name.first> Barack </name.first> <name.last> Obama </name.last> </pers.ind> a été à <loc.adm.town> <name> Dakar </name> </loc.adm.town> , au <loc.adm.nat> <name> Sénégal </name> </loc.adm.nat> , en juin 2013 .
 `
 
-## Short how-to :
+## Short how-to
 
 This is an alpha release and I advise to contact me for installation / configuration / usage. My current problems are the availability of corpora for French, and adaptations of preprocessings (TreeTagger) for English. Anyway, let's write a very quick start guide.
 
@@ -123,7 +123,7 @@ Hopefully, the script testCorpus.sh is human-readable. In a few words, it should
 
 Ok. This is very minimal. More to come, sooner or later, dependending on requests, with an examplified dataset...
 
-## Pattern extractor:
+## Pattern extractor
 
 sminer extracts all sequences having a frequency greater than or equal to a minimum threshhold. Target (objective) items may be searched according to a confidence threshold and outputed (as "annotation rules").
 
@@ -140,7 +140,7 @@ Other replacements are available:
 - "<_t" and "t_>" will ignore contained text and be replaced in output by "<" and ">"
 - same thing for "<_c" and "c_>": ignores contained text and replace it by "]" and "]"
 
-## Reference:
+## Reference
 
 If you use this software, please do cite:
 
@@ -156,7 +156,7 @@ Pattern Mining for Named Entity Recognition. Damien Nouvel, Jean-Yves Antoine, N
 }
 `
 
-## Debugging mXS:
+## Debugging mXS
 
 In case something goes wrong, you'll probably want to locate the problem. Here are some instruction that may help.
 Indeed, check your numpy, scipy, scikit installations (try an import at Python CLI).
