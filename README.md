@@ -75,7 +75,7 @@ Le <func.ind> <kind> président </kind> </func.ind> <pers.ind> <name.first> Bara
 
 ## Use it quickly with docker
 
-If you have docker install, it is very easy to use: 
+If you have docker installed, it is very easy to use: 
 
 ```bash
 echo "Un test avec François Hollande en visite à Toulouse." | docker run -i guillaumeleclerc/mxs
