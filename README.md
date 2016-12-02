@@ -7,18 +7,23 @@ mXS is basically a generic software that can learn patterns to automatically ann
 It is currently working out of the box for French, but has been also successfully been tested for English (near state of the art performances) and German (still some work needed to improve performance). Please send an email if you wish support for these languages or intend to train for another language.
 
 This software requires:
-- TreeTagger : http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger
+- TreeTagger : http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger with French parameter file
 - scikit-learn : http://scikit-learn.org/stable/
 
 ## Tagging French NEs using ETAPE model for lazy people
 
-Configure TreeTagger path for mXS : comment out and set the TREETAGGER_PATH variable in file:
+Configure TreeTagger path for mXS: comment out and set the TREETAGGER_PATH variable in file:
 ```bash
 bin/conf_machineExample.sh
 ```
 E.g.
 ```bash
 TREETAGGER_PATH=/mypath/to/folderof/treetagger
+```
+
+You may check if TreeTagger does properly work, e.g. in French :
+```bash
+echo "Je vais à Paris aujourd'hui." | $TREETAGGER_PATH/cmd/tree-tagger-french
 ```
 
 Using command line, go into mxs root directory, and try (you'll have to wait a minute for lexicons to be loaded):
