@@ -23,6 +23,7 @@ TREETAGGER_PATH=/mypath/to/folderof/treetagger
 
 You may check if TreeTagger does properly work, e.g. in French :
 ```bash
+source bin/conf_machineExample.sh
 echo "Je vais à Paris aujourd'hui." | $TREETAGGER_PATH/cmd/tree-tagger-french
 ```
 
