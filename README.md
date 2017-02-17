@@ -139,12 +139,12 @@ Patterns of identical frequencies which are generalization one of each other are
 
 ## Providing text along with non-analyzable input
 
-A common but under-handled problem in NLP is the possibility to melt text and other non-analyzable input. For instance, if you have HTML file, you want the software to analyze text without looking at tags. mXS does partially support this by avoiding to analyze anything that is between "<_n" and "n_>" (and output it as it is).
+A common but under-handled problem in NLP is the possibility to melt text and other non-analyzable input. For instance, if you have HTML file, you want the software to analyze text without processing tags, which are not natural language. mXS does partially support this by avoiding to analyze anything that is between `<_n` and `n_>` (and output it as it is).
 
 Other replacements are available:
-- "<_b" will be replaced by a new line (e.g. you can add "<_bn_>" to create a new line in output),
-- "<_t" and "t_>" will ignore contained text and be replaced in output by "<" and ">"
-- same thing for "<_c" and "c_>": ignores contained text and replace it by "]" and "]"
+- `<_b` will be replaced by a new line (e.g. you can add `<_bn_>` to create a new line in output),
+- `<_t` and `t_>` will ignore contained text and be replaced in output by `<` and `>`
+- same thing for `<_c` and `c_>`: ignores contained text and replace it by `[` and `]`
 
 ## Reference
 
