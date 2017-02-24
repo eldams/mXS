@@ -1,51 +1,49 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-import fileinput
-import re
-import sys
+#_*_coding:utf8_*_
 import os
-# Trouver les entités en sortie de bin/tagEtapeModel qui ont un lien dans dicos/links.lst
-# Si lien trouvé ajouter un attribut link à la balise
-# <pers>Nicolas Sarkozy</pers>
-# <pers link="https://fr.wikipedia.org/wiki/Nicolas_Sarkozy">Nicolas Sarkozy</pers>
-MXS_PATH = os.environ.get('MXS_PATH')
+import json
+import re
+from pprint import pprint
+import json
+import codecs
+import sys
 
-def lirelinks():
-    with open(MXS_PATH + "/dicos/links.lst") as f:
-        content = f.readlines()
-        dico = {}
-        for entity in content:
-            l = entity.split("\t")
-            key = (l[1], l[2])
-            dico[key] = l[3]
-        return dico
+Mxs_path = os.environ.get('MXS_PATH')
+
+
+def extract_data():
+    data = Mxs_path + "/dicos/Politiques.json"
+    dico = {}
+    lines = [line for line in codecs.open(data)]
+    js = [json.loads(line) for line in lines]
+    for person in js:
+        if "fullName" and "wikipediaUrl" in person:
+            fullName = person["fullName"]
+            wikiUrl = person["wikipediaUrl"]
+            dico[fullName] = wikiUrl
+    return(dico)
 
 
 def identifier_NEs():
-    dico = lirelinks()
+    data_reference = extract_data()
+    
     content = sys.stdin.read()
-    try:
-        ls = content.split('</pers.ind>')
-    except:
-        print "there is no NEs de type person in text."
-    for name in ls:
-        entity_persons = re.findall(r'<pers\.ind>.*', name)
-        if entity_persons:
-            entity_person = entity_persons[0]
-            first_name = re.search(
-                r'<name\.first>(.*)</name\.first>', entity_person)
-            last_name = re.search(
-                r'<name\.last>(.*)</name\.last>', entity_person)
-            if first_name:
-                first_name = first_name.group(1).strip()
-            if last_name:
-                last_name = last_name.group(1).strip()
-            n = (first_name, last_name)
-            if n in dico:
-                link = dico[n]
-            old = re.compile(entity_person)
-            new = "<pers.ind link={}><name.first> {} </name.first><name.last> {} </name.last>".format(
-                link, first_name, last_name)
+
+    # print(content)
+    #content = "<pers> Yves Calvi </pers> : Vous n' étiez pas désigné comme absent , <pers> Philippe Martinez </pers> . C' est un commentaire général sur certains <func> leaders syndicaux </func> qui ne participent pas jusqu' au bout aux manifestations . Il n' était pas question que ce fut vous , je le précise . "
+    names = re.findall(r'<pers>.*?</pers>', content)
+    if names:
+        for name in names:
+            link = None
+            n = re.search(r'<pers>(.*)</pers>', name).group(1).strip()
+            if n in data_reference:
+                link = '"' + data_reference[n] + '"'
+            try:
+                old = re.compile(name)
+            except:
+                pass
+            new = "<pers link={}>{}</pers>".format(link, n)
             content = old.sub(new, content)
-    print (content)
+        print (content)
+
 identifier_NEs()
