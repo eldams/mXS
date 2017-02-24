@@ -79,6 +79,20 @@ This command should output the folllowing full annotation, with components:
 Le <func.ind> <kind> président </kind> </func.ind> <pers.ind> <name.first> Barack </name.first> <name.last> Obama </name.last> </pers.ind> a été à <loc.adm.town> <name> Dakar </name> </loc.adm.town> , au <loc.adm.nat> <name> Sénégal </name> </loc.adm.nat> , en juin 2013 .
 `
 
+## Use it quickly with docker
+
+If you have docker installed, it is very easy to use: 
+
+```bash
+echo "Un test avec François Hollande en visite à Toulouse." | docker run -i guillaumeleclerc/mxs
+```
+
+Or with a file:
+
+```bash
+docker run -i guillaumeleclerc/mxs < text_file
+```
+
 ## Short how-to
 
 This is an alpha release and I advise to contact me for installation / configuration / usage. My current problems are the availability of corpora for French, and adaptations of preprocessings (TreeTagger) for English. Anyway, let's write a very quick start guide.
