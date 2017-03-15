@@ -7,12 +7,14 @@ from pprint import pprint
 import json
 import codecs
 import sys
+import argparse
+import sys
 
-Mxs_path = os.environ.get('MXS_PATH')
+#Mxs_path = os.environ.get('MXS_PATH')
 
 
 def extract_data():
-    data = Mxs_path + "/dicos/Politiques.json"
+    data = "/Users/wangyizhe/Desktop/Politiques.json"
     dico = {}
     lines = [line for line in codecs.open(data)]
     js = [json.loads(line) for line in lines]
@@ -26,18 +28,18 @@ def extract_data():
 
 def identifier_NEs():
     data_reference = extract_data()
-    
-    content = sys.stdin.read()
-
-    # print(content)
-    #content = "<pers> Yves Calvi </pers> : Vous n' étiez pas désigné comme absent , <pers> Philippe Martinez </pers> . C' est un commentaire général sur certains <func> leaders syndicaux </func> qui ne participent pas jusqu' au bout aux manifestations . Il n' était pas question que ce fut vous , je le précise . "
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', type=argparse.FileType('r'))
+    args = parser.parse_args()
+    content = args.file.read()
+    #content = content = sys.argv[1:]
     names = re.findall(r'<pers>.*?</pers>', content)
     if names:
         for name in names:
             link = None
             n = re.search(r'<pers>(.*)</pers>', name).group(1).strip()
             if n in data_reference:
-                link = '"' + data_reference[n] + '"'
+                link = "'" + data_reference[n] + "'"
             try:
                 old = re.compile(name)
             except:
