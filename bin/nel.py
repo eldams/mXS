@@ -3,16 +3,14 @@
 import os,json,re, codecs, sys, argparse, collections
 from pprint import pprint
 from wikiapi import WikiApi
-from nltk.corpus import stopwords
+# from nltk.corpus import stopwords
 from math import sqrt
 
 
 json_data ={} 
-project = os.environ.get('project')
+mxspath = os.environ.get('MXS_PATH')
 n = 0
 list_path = []
-mxsfolder = project + "/result_mXS"
-list_dirs = os.walk(mxsfolder)
 
 wiki = WikiApi()
 wiki = WikiApi({'locale': 'fr'})
@@ -21,10 +19,9 @@ wiki = WikiApi({'locale': 'fr'})
 def cut_word(content):
     text = re.sub("[^a-zA-Z]", " ", content)
     words = text.lower().split()
-    stops = set(stopwords.words('french'))
-    tags = [w for w in words if not w in stops]
+    # stops = set(stopwords.words('french'))
+    tags = [w for w in words]
     return (tags)
-
 
 def merge_tag(tag1=None, tag2=None):
     v1 = []
@@ -62,7 +59,6 @@ def similarity(v1, v2):
 
 def get_wikilinks(n, content):
     url = None
-    print (n)
     # results = wiki.find(n.strip())
     results = wiki.find(n)
     if results:
@@ -71,6 +67,7 @@ def get_wikilinks(n, content):
         else:
             dico_simi = {}
             for text in results:
+                print text
                 article = wiki.get_article(text)
                 summary = article.content
                 tag1, tag2 = cut_word(summary), cut_word(content)
@@ -81,9 +78,8 @@ def get_wikilinks(n, content):
             url = max_key.url
             return url
 
-
 def extract_data():
-    data = "/Users/wangyizhe/Desktop/StageNEL/Politiques.json"
+    data = mxspath+"/dicos/Politiques.json"
     dico = {}
     lines = [line for line in codecs.open(data)]
     js = [json.loads(line) for line in lines]
@@ -92,33 +88,33 @@ def extract_data():
             fullName = person["fullName"]
             wikiUrl = person["wikipediaUrl"]
             dico[fullName] = wikiUrl
+            if "lastName" in person:
+                lastName = person["lastName"]
+                dico[lastName] = wikiUrl
     return(dico)
-
 
 def identifier_NEs(content):
     data_reference = extract_data()
-    """for root, dirs, files in list_dirs:
-        for f in files[:3]:
-            if f != '.DS_Store':
-                with open(mxsfolder + '/' + f, 'r') as fo:
-                    content = fo.read()"""
-    names = re.findall(r'<pers.*?>.*?</pers>', content)
+    names = re.findall(r'<pers.*?>.*?</pers.*?>', content)
     if names:
         for name in names:
             link = None
-            n = re.search(r'<pers.*?>(.*)</pers>', name).group(1).strip()
+            n = re.search(r'<pers.*?>(.*?)</pers.*?>', name).group(1).strip()
+            n = re.sub('  +', ' ', re.sub('<[^>]*>', '', n).strip())
             if n in data_reference:
-                link = "'" + data_reference[n] + "'"
+                link = '"' + data_reference[n] + '"'
             else:
                 url = get_wikilinks(n, content)
                 if url != None:
-                    link = "'" + url + "'"
+                    link = '"' + url + '"'
             try:
                 old = re.compile(name)
             except:
                 pass
-            new = "<pers link={}>{}</pers>".format(link, n)
-            content = old.sub(new, content)
-        print (content)
+            if link:
+                new = "<pers link={}>{}</pers>".format(link, n)
+                content = old.sub(new, content)
+    print(content)
+
 data = sys.stdin.read()
 identifier_NEs(data)
