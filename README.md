@@ -181,6 +181,11 @@ Pattern Mining for Named Entity Recognition. Damien Nouvel, Jean-Yves Antoine, N
 In case something goes wrong, you'll probably want to locate the problem. Here are some instruction that may help.
 Indeed, check your numpy, scipy, scikit installations (try an import at Python CLI).
 
+Export mXS path if not already done
+```bash
+export MXS_PATH=$(pwd)
+```
+
 Then source configuration files :
 ```bash
 source ./bin/conf_machineExample.sh
@@ -189,7 +194,7 @@ source ./bin/conf_EtapeModel.sh
 
 Execute those commands to see at what stage you have a problem (be patient, $SEQUENCE_SCRIPT may load many lexicon) :
 ```bash
-sentence="Le président Barack Obama"
+sentence="Le président François Hollande a vu Barack Obama"
 echo $sentence | $DATA_CORPUS_SCRIPT
 echo $sentence | $DATA_CORPUS_SCRIPT | $PREPROCESS_SCRIPT
 echo $sentence | $DATA_CORPUS_SCRIPT | $PREPROCESS_SCRIPT | $SEQUENCE_SCRIPT
