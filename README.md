@@ -2,13 +2,11 @@
 
 ## Description
 
-mXS is basically a generic software that can learn patterns to automatically annotate segments in sequences (text) when a training corpus is provided. In practice, here is provided a model as a French NER tagger.
-
-It is currently working out of the box for French, but has been also successfully been tested for English (near state of the art performances) and German (still some work needed to improve performance). Please send an email if you wish support for these languages or intend to train for another language.
-
-This software requires
+mXS is a tool that you'll be able to easily install and use for French NER, it requires
 - [TreeTagger](http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger) with French parameter file
 - [scikit-learn](http://scikit-learn.org/stable/)
+
+I did also successfully test for English (near state of the art performances) and German (still some work needed). It can also be used for any annotation task, as long as you provide a training corpus in the required format. Please send an email if you wish support or intend to train for another language.
 
 ## Tagging French NEs using ETAPE model for lazy people
 
