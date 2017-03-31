@@ -66,14 +66,12 @@ cat corpus.txt | $MXS_PATH/bin/tagEtapeModelPLOP.sh > corpus-tagged.txt
 
 ## Linking named entities
 
-We are heading to Named Entity linking, it is currently porovided as a beta version functionnality. For the moment, two data sources are used:
+We are heading to Named Entity linking, it is currently provided as a beta version functionnality. For the moment, two data sources are used
 
 - a local file in `dicos/links.json`
 - a online request to dbpedia using [Wikiapi](https://github.com/richardasaurus/wiki-api).
 
-Unfortunately, the online request currently is not very accurate and often return links that are not correct.
-
-For instance, the command
+Please keep in mind that unfortunately, the online request is currently not correctly disambiguated and often return incorrect links. For instance, the command
 
 ```
 echo "En 1930, John von Neumann a rencontré Alan Turing à Londres." | ./bin/linkEtapeModel.sh
