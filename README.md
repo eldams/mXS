@@ -64,6 +64,27 @@ It is indeed possible to use mXS on a stream (e.g. corpus file) by redirecting i
 cat corpus.txt | $MXS_PATH/bin/tagEtapeModelPLOP.sh > corpus-tagged.txt
 ```
 
+## Linking named entities
+
+We are heading to Named Entity linking, it is currently porovided as a beta version functionnality. For the moment, two data sources are used:
+
+- a local file in `dicos/links.json`
+- a online request to dbpedia using [Wikiapi](https://github.com/richardasaurus/wiki-api).
+
+Unfortunately, the online request currently is not very accurate and often return links that are not correct.
+
+For instance, the command
+
+```
+echo "En 1930, John von Neumann a rencontré Alan Turing à Londres." | ./bin/linkEtapeModel.sh
+```
+
+Should output
+
+`
+En 1930 , <pers link="https://fr.wikipedia.org/wiki/Prix_de_th%C3%A9orie_John-von-Neumann">John von Neumann</pers> a rencontré <pers link="https://fr.wikipedia.org/wiki/Alan_Turing">Alan Turing</pers> à <loc> Londres </loc> .
+`
+
 ## Obtaining fine-grained annotation
 
 The Etape project also provides fine-grained and structured annotation of named entities. You may also use this model, at the cost of a much solower annotation process.

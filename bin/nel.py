@@ -79,7 +79,7 @@ def get_wikilinks(n, content):
             return url
 
 def extract_data():
-    data = mxspath+"/dicos/Politiques.json"
+    data = mxspath+"/dicos/links.json"
     dico = {}
     lines = [line for line in codecs.open(data)]
     js = [json.loads(line) for line in lines]
