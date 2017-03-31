@@ -79,7 +79,7 @@ The command
 echo "En 1930, John von Neumann a rencontré Alan Turing à Londres." | ./bin/linkEtapeModel.sh
 ```
 
-Should output entity linked both from wikipedia (von Neumann) and from json file (Alan Turing).
+Should output entity linked both from wikipedia (von Neumann) and from json file (Alan Turing)
 
 `
 En 1930 , <pers link="https://fr.wikipedia.org/wiki/John_von_Neumann">John von Neumann</pers> a rencontré <pers link="https://fr.wikipedia.org/wiki/Alan_Turing">Alan Turing</pers> à <loc> Londres </loc> .
