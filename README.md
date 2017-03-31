@@ -71,16 +71,18 @@ We are heading to Named Entity linking, it is currently provided as a beta versi
 - a local file in `dicos/links.json`
 - a online request to dbpedia using [Wikiapi](https://github.com/richardasaurus/wiki-api).
 
-Please keep in mind that unfortunately, the online request is currently not correctly disambiguated and often return incorrect links. For instance, the command
+Please keep in mind that unfortunately, the online request is currently unsufficiently disambiguated and may return incorrect links.
+
+The command
 
 ```
 echo "En 1930, John von Neumann a rencontré Alan Turing à Londres." | ./bin/linkEtapeModel.sh
 ```
 
-Should output
+Should output entity linked both from wikipedia (von Neumann) and from json file (Alan Turing).
 
 `
-En 1930 , <pers link="https://fr.wikipedia.org/wiki/Prix_de_th%C3%A9orie_John-von-Neumann">John von Neumann</pers> a rencontré <pers link="https://fr.wikipedia.org/wiki/Alan_Turing">Alan Turing</pers> à <loc> Londres </loc> .
+En 1930 , <pers link="https://fr.wikipedia.org/wiki/John_von_Neumann">John von Neumann</pers> a rencontré <pers link="https://fr.wikipedia.org/wiki/Alan_Turing">Alan Turing</pers> à <loc> Londres </loc> .
 `
 
 ## Obtaining fine-grained annotation

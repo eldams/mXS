@@ -1,20 +1,14 @@
 #!/usr/bin/env python
 #_*_coding:utf8_*_
-import os,json,re, codecs, sys, argparse, collections
-from pprint import pprint
-from wikiapi import WikiApi
-# from nltk.corpus import stopwords
-from math import sqrt
 
+import os, json, re, codecs, sys, collections, math, wikiapi, string
 
-json_data ={} 
+sys.stdin = codecs.getreader('utf8')(sys.stdin)
+sys.stdout = codecs.getwriter('utf8')(sys.stdout)
+
 mxspath = os.environ.get('MXS_PATH')
-n = 0
-list_path = []
-
-wiki = WikiApi()
-wiki = WikiApi({'locale': 'fr'})
-
+json_data ={}
+wiki = wikiapi.WikiApi({'locale': 'fr'})
 
 def cut_word(content):
     text = re.sub("[^a-zA-Z]", " ", content)
@@ -44,39 +38,69 @@ def merge_tag(tag1=None, tag2=None):
             v2.append(0)
     return v1, v2
 
-
 def dot_product(v1, v2):
     return sum(a * b for a, b in zip(v1, v2))
 
-
 def magnitude(vector):
-    return sqrt(dot_product(vector, vector))
-
+    return math.sqrt(dot_product(vector, vector))
 
 def similarity(v1, v2):
     return dot_product(v1, v2) / (magnitude(v1) * magnitude(v2) + .00000000001)
 
+def approxMatch(s1, s2, l):
+	if s1 == s2:
+		return True
+	elif l > 0:
+		excludes = string.punctuation+' \t\n'
+		s1 = ''.join(c for c in s1 if c not in excludes)
+		s2 = ''.join(c for c in s2 if c not in excludes)
+		print s1, s2
+		if s1 == s2:
+			return True
+		elif l > 1:
+			s1 = ''.join(c for c in s1 if c in string.ascii_letters).lower()
+			s2 = ''.join(c for c in s2 if c in string.ascii_letters).lower()
+			if s1 == s2:
+				return True
+			elif l > 2:
+				s1 = ''.join(c for c in s1 if c not in string.digits)
+				s2 = ''.join(c for c in s2 if c not in string.digits)
+				if s1 == s2:
+					return True
+				elif l > 3:
+					if s1 in s2 or s2 in s1:
+						return True
+					elif l > 4:
+						return True
 
-def get_wikilinks(n, content):
-    url = None
-    # results = wiki.find(n.strip())
-    results = wiki.find(n)
-    if results:
-        if len(results) == 0:
-            return("no page wikipedia")
-        else:
-            dico_simi = {}
-            for text in results:
-                print text
-                article = wiki.get_article(text)
-                summary = article.content
-                tag1, tag2 = cut_word(summary), cut_word(content)
-                v1, v2 = merge_tag(tag1, tag2)
-                simi = similarity(v1, v2)
-                dico_simi[article] = simi
-            max_key = max(dico_simi, key=lambda k: dico_simi[k])
-            url = max_key.url
-            return url
+def nameBestMatches(entity, titles):
+	matches = []
+	l = 0
+	while not len(matches):
+		for title in titles:
+			if approxMatch(entity, title, l):
+				matches.append(title)
+		l += 1
+	return matches
+
+def get_wikilinks(entity, content):
+	url = None
+	# results = wiki.find(n.strip())
+	results = wiki.find(entity)
+	if results and len(results):
+		results = nameBestMatches(entity, results)
+		if len(results) > 1:
+			dico_simi = {}
+			for title in results:
+				article = wiki.get_article(title)
+				summary = article.content
+				tag1, tag2 = cut_word(summary), cut_word(content)
+				v1, v2 = merge_tag(tag1, tag2)
+				simi = similarity(v1, v2)
+				dico_simi[article] = simi
+			return max(dico_simi, key=lambda k: dico_simi[k]).url
+		else:
+			return wiki.get_article(results[0]).url
 
 def extract_data():
     data = mxspath+"/dicos/links.json"
@@ -99,12 +123,12 @@ def identifier_NEs(content):
     if names:
         for name in names:
             link = None
-            n = re.search(r'<pers.*?>(.*?)</pers.*?>', name).group(1).strip()
-            n = re.sub('  +', ' ', re.sub('<[^>]*>', '', n).strip())
-            if n in data_reference:
-                link = '"' + data_reference[n] + '"'
+            entity = re.search(r'<pers.*?>(.*?)</pers.*?>', name).group(1).strip()
+            entity = re.sub('  +', ' ', re.sub('<[^>]*>', '', entity).strip())
+            if entity in data_reference:
+                link = '"' + data_reference[entity] + '"'
             else:
-                url = get_wikilinks(n, content)
+                url = get_wikilinks(entity, content)
                 if url != None:
                     link = '"' + url + '"'
             try:
@@ -112,9 +136,8 @@ def identifier_NEs(content):
             except:
                 pass
             if link:
-                new = "<pers link={}>{}</pers>".format(link, n)
+                new = "<pers link={}>{}</pers>".format(link, entity)
                 content = old.sub(new, content)
-    print(content)
+    return content
 
-data = sys.stdin.read()
-identifier_NEs(data)
+print identifier_NEs(sys.stdin.read())
