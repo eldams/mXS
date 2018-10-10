@@ -4,13 +4,29 @@ In short, mXS is a French NER Tagger.
 
 ## Description
 
-mXS is a tool that you'll be able to easily install and use for French NER (Named Entity Recognition). It requires
+mXS is a tool that you'll be able to easily install and use for French NER (Named Entity Recognition), it requires
 - [TreeTagger](http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger) with French parameter file
 - [scikit-learn](http://scikit-learn.org/stable/)
 
 I did also successfully test for English (near state of the art performances) and German (still some work needed). It can also be used for any annotation task, as long as you provide a training corpus in the required format. Please send an email if you wish support or intend to train for another language.
 
-## Tagging French NEs using ETAPE model for lazy people
+Models that are available are base on the [ETAPE](http://www.afcp-parole.org/etape/docs/lrec-etape-12.pdf) evaluation campaign, which annotation are based on [Quaero annotation scheme](http://www.quaero.org/media/files/bibliographie/quaero-guide-annotation-2011.pdf). The "lazy" version of mXS tags a very restricted dataset with only persons, locations, organizations and products.
+
+## Tagging French entities (ETAPE model) for very lazy people
+
+If you have docker installed, it is very easy to use 
+
+```bash
+echo "Un test avec François Hollande en visite à Toulouse." | docker run -i guillaumeleclerc/mxs
+```
+
+Or with a file
+
+```bash
+docker run -i guillaumeleclerc/mxs < text_file
+```
+
+## Tagging French entities (ETAPE model) for (somehow less) lazy people
 
 Configure TreeTagger path for mXS: comment out and set the TREETAGGER_PATH variable in file
 ```bash
@@ -99,20 +115,6 @@ This command should output the folllowing full annotation, with components
 `
 Le <func.ind> <kind> président </kind> </func.ind> <pers.ind> <name.first> Barack </name.first> <name.last> Obama </name.last> </pers.ind> a été à <loc.adm.town> <name> Dakar </name> </loc.adm.town> , au <loc.adm.nat> <name> Sénégal </name> </loc.adm.nat> , en juin 2013 .
 `
-
-## Use it quickly with docker
-
-If you have docker installed, it is very easy to use 
-
-```bash
-echo "Un test avec François Hollande en visite à Toulouse." | docker run -i guillaumeleclerc/mxs
-```
-
-Or with a file
-
-```bash
-docker run -i guillaumeleclerc/mxs < text_file
-```
 
 ## Short how-to
 
