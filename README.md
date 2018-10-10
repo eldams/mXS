@@ -1,8 +1,10 @@
 # mXS
 
+In short, mXS is a French NER Tagger.
+
 ## Description
 
-mXS is a tool that you'll be able to easily install and use for French Named Entity Recognition. It requires
+mXS is a tool that you'll be able to easily install and use for French NER (Named Entity Recognition). It requires
 - [TreeTagger](http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger) with French parameter file
 - [scikit-learn](http://scikit-learn.org/stable/)
 
