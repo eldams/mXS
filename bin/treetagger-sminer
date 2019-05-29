@@ -12,7 +12,9 @@ TOKENIZER=$MXS_PATH/bin/treetagger-tokenizer.perl
 #TOKENIZER=${CMD}/utf8-tokenize.perl
 TAGGER=${BIN}/tree-tagger
 ABBR_LIST=${LIB}/french-abbreviations-utf8
+[[ -f $ABBR_LIST ]] || ABBR_LIST=${LIB}/french-abbreviations
 PARFILE=${LIB}/french-utf8.par
+[[ -f $PARFILE ]] || PARFILE=${LIB}/french-abbreviations
 
 $TOKENIZER -f -a $ABBR_LIST $* |
 $TAGGER $OPTIONS $PARFILE

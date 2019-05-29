@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #_*_coding:utf8_*_
 
 import os, json, re, codecs, sys, collections, math, wikiapi, string
