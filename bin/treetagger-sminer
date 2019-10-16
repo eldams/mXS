@@ -2,19 +2,16 @@
 
 # Set these paths appropriately
 
-BIN=$TREETAGGER_PATH/bin
-CMD=$TREETAGGER_PATH/cmd
-LIB=$TREETAGGER_PATH/lib
+BIN="/Users/damien/Applications/TreeTagger/bin"
+CMD="/Users/damien/Applications/TreeTagger/cmd"
+LIB="/Users/damien/Applications/TreeTagger/lib"
 
 OPTIONS="-token -lemma -sgml -no-unknown -eos-tag <sent/>"
 
-TOKENIZER=$MXS_PATH/bin/treetagger-tokenizer.perl
-#TOKENIZER=${CMD}/utf8-tokenize.perl
+TOKENIZER=${CMD}/utf8-tokenize.perl
 TAGGER=${BIN}/tree-tagger
-ABBR_LIST=${LIB}/french-abbreviations-utf8
-[[ -f $ABBR_LIST ]] || ABBR_LIST=${LIB}/french-abbreviations
-PARFILE=${LIB}/french-utf8.par
-[[ -f $PARFILE ]] || PARFILE=${LIB}/french-abbreviations
+ABBR_LIST=${LIB}/french-abbreviations
+PARFILE=${LIB}/french.par
 
 $TOKENIZER -f -a $ABBR_LIST $* |
 $TAGGER $OPTIONS $PARFILE
