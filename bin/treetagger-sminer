@@ -2,9 +2,9 @@
 
 # Set these paths appropriately
 
-BIN="/Users/damien/Applications/TreeTagger/bin"
-CMD="/Users/damien/Applications/TreeTagger/cmd"
-LIB="/Users/damien/Applications/TreeTagger/lib"
+BIN="$TREETAGGER_PATH/bin"
+CMD="$TREETAGGER_PATH/cmd"
+LIB="$TREETAGGER_PATH/lib"
 
 OPTIONS="-token -lemma -sgml -no-unknown -eos-tag <sent/>"
 
