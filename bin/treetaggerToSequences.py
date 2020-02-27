@@ -360,5 +360,5 @@ for sequence in corpus:
 			sequences.append(' '.join(binSequence))
 		else:
 			sequences.append(' '.join(sequence))
-print '\n'.join(sequences)+'\n'
+print('\n'.join(sequences)+'\n')
 
