@@ -91,7 +91,7 @@ annotationSelect = os.environ.get('SELECT_SCRIPT')
 mxsProbaMin = os.environ.get('MXS_PROBAMIN')
 if mxsProbaMin:
 	probaMinimum = float(mxsProbaMin)
-if annotationFormat == 'Etape' and annotationSelect and (annotationSelect.endswith('selectOuterPLO.sh') or annotationSelect.endswith('selectOuterPLO.py')):
+if annotationFormat == 'Etape' and annotationSelect and annotationSelect.endswith('selectOuterPLOP.py'):
 	annotationChildren = {annotationRoot: '*'}
 	probaMinimum = 0.05
 elif annotationFormat == 'Etape':
