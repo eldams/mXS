@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -14,7 +14,7 @@ for token in sys.stdin:
 		if sentenceCount%3:
 			sys.stderr.write(sentenceTokens+'\n')
 		else:
-			print sentenceTokens
+			print(sentenceTokens)
 		sentenceTokens = ''
 		sentenceCount += 1
 

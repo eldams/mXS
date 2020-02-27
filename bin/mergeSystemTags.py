@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -31,5 +31,5 @@ for diffLine in sys.stdin.readlines():
 				overlapParts[overlapSource] = diffLine
 	else:
 		tokens.append(diffLine)
-print ' '.join(tokens)
+print(' '.join(tokens))
 

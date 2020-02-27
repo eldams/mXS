@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -17,5 +17,5 @@ for trainLine in sys.stdin.readlines():
 	for modelMarkerProba in modelMarkerProbas:
 		if modelMarkerProba[1] > 0.00001:
 			probaFeats.append(modelMarkerProba[0] + ':' + str(modelMarkerProba[1]))
-	print trainCols[0] + '\t' + '\t'.join(probaFeats)
+	print(trainCols[0] + '\t' + '\t'.join(probaFeats))
 

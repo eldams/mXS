@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -15,10 +15,10 @@ for trainLine in sys.stdin.readlines():
 		if trainLabel.startswith('-'):
 			trainLabelC.append(trainLabel[1:])
 	if len(trainLabelO):
-		print '+' + ','.join(trainLabelO) + '\t' + trainFeats
+		print('+' + ','.join(trainLabelO) + '\t' + trainFeats)
 	else:
-		print '+=\t' + trainFeats
+		print('+=\t' + trainFeats)
 	if len(trainLabelC):
-		print '-' + ','.join(trainLabelC) + '\t' + trainFeats
+		print('-' + ','.join(trainLabelC) + '\t' + trainFeats)
 	else:
-		print '-=\t' + trainFeats
+		print('-=\t' + trainFeats)

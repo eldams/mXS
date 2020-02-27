@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -52,13 +52,13 @@ class MatrixClassifierMeanSquaredError(MatrixClassifier):
 		errorSquared = self.minError
 		while iteration <= self.maxIteration and errorSquared >= self.minError:
 			if self.verbose:
-				print 'Iteration:', iteration
+				print('Iteration:', iteration)
 			iteration += 1
 			predictedMatrix = self.predict_proba(X)
 			errorMatrix = (yMatrix - predictedMatrix).T
 			errorSquared = numpy.sum(numpy.power(errorMatrix, 2))
 			if self.verbose:
-				print ' > squared error:', errorSquared
+				print(' > squared error:', errorSquared)
 			for i in range(len(matrixT)):
 				error = numpy.mean(errorMatrix[i])
 				for j in range(len(matrixT[i])):
@@ -91,7 +91,7 @@ class MatrixClassifierPermutationError(MatrixClassifier):
 		while iterate:
 			iteration += 1
 			if self.verbose:
-				print 'Iteration:', iteration
+				print('Iteration:', iteration)
 			predictedMatrix = self.predict_proba(X)
 			errorRankSum = 0
 			errorProbaSum = 0
@@ -113,16 +113,16 @@ class MatrixClassifierPermutationError(MatrixClassifier):
 					for j in range(index):
 						permutationMarkers[correctSequence, rankedSequences[j][0]] += permutationCosts[correctSequence, rankedSequences[j][0]]*X[i]
 			if self.verbose:
-				print ' > mean rank:', 1 + float(errorRankSum)/nbSequences
-				print ' > mean proba error:', errorProbaSum/nbSequences
-				print ' > mean permutation error:', errorPermutationSum/nbSequences
-				print ' > l1 weight:', numpy.sum(abs(matrix))
+				print(' > mean rank:', 1 + float(errorRankSum)/nbSequences)
+				print(' > mean proba error:', errorProbaSum/nbSequences)
+				print(' > mean permutation error:', errorPermutationSum/nbSequences)
+				print(' > l1 weight:', numpy.sum(abs(matrix)))
 			if not bestErrorSum or errorPermutationSum < bestErrorSum:
 				bestMatrix = matrix.copy()
 				gc.collect()
 				bestErrorSum = errorPermutationSum
 				if self.verbose:
-					print ' >> save best matrix'
+					print(' >> save best matrix')
 			iterate = False
 			if iteration <= self.maxIteration and errorRankSum > self.minRank:
 				iterate = True
@@ -138,8 +138,7 @@ class MatrixClassifierPermutationError(MatrixClassifier):
 					matrixT[i] += gradient
 					gradientSum += numpy.sum(abs(gradient))
 				if self.verbose:
-					print ' > gradient sum:', gradientSum
+					print(' > gradient sum:', gradientSum)
 		self.matrix = bestMatrix.copy()
 		if self.verbose:
-			print 'Done'
-
+			print('Done')

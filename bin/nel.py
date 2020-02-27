@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #_*_coding:utf8_*_
 
 import os, json, re, codecs, sys, collections, math, wikiapi, string
@@ -54,7 +54,7 @@ def approxMatch(s1, s2, l):
 		excludes = string.punctuation+' \t\n'
 		s1 = ''.join(c for c in s1 if c not in excludes)
 		s2 = ''.join(c for c in s2 if c not in excludes)
-		# print s1, s2
+		# print(s1, s2)
 		if s1 == s2:
 			return True
 		elif l > 1:

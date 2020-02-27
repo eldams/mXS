@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -39,7 +39,7 @@ for line in open(infosFilename):
 		sequenceClassesLen[sequenceId] = len(lineParts[1].split('/'))
 
 # Loads data
-print 'Loading data:', nbSequences, 'sequences (', nbSequenceClasses,'distincts),', nbMarkers, 'markers (', nbMarkerClasses,'distincts)', nbFeatures, 'features'
+print('Loading data:', nbSequences, 'sequences (', nbSequenceClasses,'distincts),', nbMarkers, 'markers (', nbMarkerClasses,'distincts)', nbFeatures, 'features')
 sequenceCount = 0
 sequenceTargetsSet = []
 sequenceFeaturesSet = sparse.lil_matrix((nbSequences, nbFeatures), dtype=numpy.bool)
@@ -51,11 +51,11 @@ for line in sys.stdin:
 	sequenceTargetsSet.append([int(markerId) for markerId in lineParts[1].split(',')])
 	sequenceCount += 1
 	if modeDebug and not sequenceCount%10000:
-		print ' >', sequenceCount
+		print(' >', sequenceCount)
 
 # Learning markers model
 for marker in markerIds:
-	print 'Learning marker ' + marker
+	print('Learning marker ' + marker)
 	markerId = markerIds[marker]
 	classWeights = None # None, auto
 	sequencesClassifier = None
@@ -74,5 +74,5 @@ for marker in markerIds:
 		sequenceFeaturesSet = sequenceFeaturesSet.tocsr()
 	sequencesClassifier.fit(sequenceFeaturesSet, markerTargetsSet)
 	pickle.dump(sequencesClassifier, open(corpusModel + '/model_' + marker + '.txt', 'wb'))
-print 'Done'
+print('Done')
 

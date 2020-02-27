@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -46,5 +46,5 @@ for line in sys.stdin:
 		outputTokens.append(features[0])
 for i in range(len(currentLabels)):
 	outputTokens.append('NE/<NEm-'+nextLabels[i]+'> ')
-print ' '.join(outputTokens)
+print(' '.join(outputTokens))
 

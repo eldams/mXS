@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Merge tags from CasEN and sminer
@@ -57,5 +57,5 @@ for line in sys.stdin:
 			nbSubRes = subRes[1]
 	line = re.sub(r'NEc/</?NEc-([^>]+)>', ' ', line)
 	line = re.sub('  +', ' ', line)
-	print line.strip()
+	print(line.strip())
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -358,7 +358,7 @@ class Hypothesis:
 def calculateProbaFromMarkers(priorProba, markers, noRootProba = False):
 	if modeDebugVerbose:
 		for marker in markers:
-			print 'Bayes marker:', marker.item, priorProba*marker.getProba(noRootProba)/marker.rule.probaWithoutTarget
+			print('Bayes marker:', marker.item, priorProba*marker.getProba(noRootProba)/marker.rule.probaWithoutTarget)
 	proba = 0
 	if probaMode == 'independance':
 		proba = priorProba
@@ -717,14 +717,14 @@ for shortMarkerSequence in shortMarkerSequenceProbas:
 		shortMarkerSequenceProbas[shortMarkerSequence]['markers'][shortMarker] = (float(shortMarkerSequenceProbas[shortMarkerSequence]['freqts']) + probaConditionalSmooth)/(float(shortMarkerFrequency[shortMarker]) + probaConditionalSmooth)
 
 if modeDebug:
-	print 'Rules:', ruleCount
-	print 'Rule nodes:', ruleNodeCount
-	print 'Prior markers:'
+	print('Rules:', ruleCount)
+	print('Rule nodes:', ruleNodeCount)
+	print('Prior markers:')
 	for shortMarker in priorShortMarkerProbas:
-		print ' >', shortMarker, priorShortMarkerProbas[shortMarker]
-	print 'Conditional markers:'
+		print(' >', shortMarker, priorShortMarkerProbas[shortMarker])
+	print('Conditional markers:')
 	for shortMarkerSequence in shortMarkerSequenceProbas:
-		print ' >', shortMarkerSequence, shortMarkerSequenceProbas[shortMarkerSequence]
+		print(' >', shortMarkerSequence, shortMarkerSequenceProbas[shortMarkerSequence])
 
 # Open text input, find and apply rules
 sequenceLines = 0
@@ -733,7 +733,7 @@ heldStats = {'items' : 0, 'detect-cr' : 0, 'reco-c' : 0, 'reco-r' : 0, 'reco-cr'
 for sentence in sys.stdin:
 	sentence = sentence.strip()
 	if modeDebug:
-		print '\nSentence:', sentence
+		print('\nSentence:', sentence)
 	sentenceItems = []
 	sentenceInfos = {}
 	sentenceInc = {}
@@ -765,8 +765,8 @@ for sentence in sys.stdin:
 			# Examines current token
 			token = tokens[tokenIndex]
 			if modeDebug:
-				print '-------------------------------'
-				print 'Search rules for token', tokenIndex, token, ':'
+				print('-------------------------------')
+				print('Search rules for token', tokenIndex, token, ':')
 			itemIndex = len(sentenceItems)
 			# If escape token, just store it
 			if sentenceEscaping or re.match(r'<_', token):
@@ -817,7 +817,7 @@ for sentence in sys.stdin:
 				previousTokenParents = tokenParents
 				tokenParents = getTokenParents(tokenParts)
 				if modeDebugVerbose:
-					print 'Token categories:', tokenParents
+					print('Token categories:', tokenParents)
 				for tokenParent in tokenParents:
 					for startingIndex in ruleNodeMatches:
 						for ruleMatch in ruleNodeMatches[startingIndex]:
@@ -844,12 +844,12 @@ for sentence in sys.stdin:
 								if tokenParent in ruleMatch.node.childrens:
 									createOrAddDictSet(newRuleNodeMatches, startingIndex + 1, RuleNodeMatch(ruleMatch.node.childrens[tokenParent], ruleMatch))
 							elif modeDebugVerbose:
-								print 'Avoid continuing segmental rule (', tokenParent, ' vs ', previousTokenParent, ')'
+								print('Avoid continuing segmental rule (', tokenParent, ' vs ', previousTokenParent, ')')
 					if tokenParent in rootRuleNode.childrens:
 						if not modeSegmentals or tokenParent not in previousTokenParents:
 							createOrAddDictSet(newRuleNodeMatches, 0, RuleNodeMatch(rootRuleNode.childrens[tokenParent]))
 						elif modeDebugVerbose:
-							print 'Avoid starting segmental rule (', tokenParent, ')'
+							print('Avoid starting segmental rule (', tokenParent, ')')
 				ruleNodeMatches = newRuleNodeMatches
 				# Records markers for applying rules
 				for j in ruleNodeMatches:
@@ -858,16 +858,16 @@ for sentence in sys.stdin:
 							for k in rule.markers:
 								mi = ruleNodeMatch.getMarkerPosition(k, len(rule.items))
 								if modeSegmentals and modeDebugVerbose:
-									print 'Segmental rule:', rule, k, mi
+									print('Segmental rule:', rule, k, mi)
 								for marker in rule.markers[k]:
 									markerIndex = itemIndex - j + mi
 									if modeSegmentals and markerIndex - 1 in sentenceMarkers and marker in sentenceMarkers[markerIndex - 1]:
 										if modeDebugVerbose:
-											print 'Remove previous marker:', marker, markerIndex - 1
+											print('Remove previous marker:', marker, markerIndex - 1)
 										sentenceMarkers[markerIndex - 1].remove(marker)
 									createOrAddDictSet(sentenceMarkers, markerIndex, marker)
 									if modeDebugVerbose:
-										print 'Added rule', rule, markerIndex, marker
+										print('Added rule', rule, markerIndex, marker)
 		# Tries to resolve markers for fully determined local context
 		maxRuleNodeMatchesIndex = 0
 		if tokenIndex == tokensLen - 1:
@@ -877,25 +877,25 @@ for sentence in sys.stdin:
 		while ri < itemIndex - maxRuleNodeMatchesIndex:
 			# Finds markers for current resolved index
 			if modeDebug:
-				print '-------------------------------'
-				print 'Resolve token', ri, ':',
+				print('-------------------------------')
+				print('Resolve token', ri, ':',)
 				if ri in sentenceTokens:
-					print sentenceTokens[ri], '(', sentenceInfos[ri], ')'
+					print(sentenceTokens[ri], '(', sentenceInfos[ri], ')')
 				else:
-					print '(end sentence)'
+					print('(end sentence)')
 				if ri in sentenceMarkers:
-					print 'Proposed markers:'
+					print('Proposed markers:')
 					proposedMarkers = {}
 					for marker in sentenceMarkers[ri]:
 						proposedMarkers[marker.shortMarker] = True
-					print 'Rule triggered markers:' + ','.join(proposedMarkers)
+					print('Rule triggered markers:' + ','.join(proposedMarkers))
 					if modeDebugVerbose:
 						for marker in sentenceMarkers[ri]:
-							print 'Rule triggered:', marker.rule
+							print('Rule triggered:', marker.rule)
 			# Retrieve and append existing markers to all hypothesis
 			if ri in existingMarkers:
 				if modeDebug:
-					print 'Existing markers:', existingMarkers[ri]
+					print('Existing markers:', existingMarkers[ri])
 				for marker in existingMarkers[ri]:
 					for categoryPath in annotationHypothesis:
 						annotationHypothesis[categoryPath].addItem(marker.item, ri)
@@ -906,11 +906,11 @@ for sentence in sys.stdin:
 				for marker in sentenceMarkers[ri]:
 					createOrAddDictSet(markers, marker.shortMarker, marker)
 			if modeDebugVerbose:
-				print 'Rule markers:'
+				print('Rule markers:')
 				for shortMarker in markers:
-					print 'Marker', shortMarker, ':'
+					print('Marker', shortMarker, ':')
 					for marker in markers[shortMarker]:
-						print '- rule:', marker.rule.string
+						print('- rule:', marker.rule.string)
 			# Discard non-specific rules
 			if modeSpecificRules:
 				specificMarkers = {}
@@ -925,7 +925,7 @@ for sentence in sys.stdin:
 									if otherShortMarker == shortMarker:
 										markerIsSpecificShortMarker = False
 									if modeDebugVerbose:
-										print 'Rule discarded:', marker.rule.string, '(vs: ', otherMarker.rule.string, ', for short marker:',markerIsSpecificShortMarker ,')'
+										print('Rule discarded:', marker.rule.string, '(vs: ', otherMarker.rule.string, ', for short marker:',markerIsSpecificShortMarker ,')')
 									if not markerIsSpecificShortMarker:
 										break
 						if markerIsSpecificShortMarker:
@@ -938,7 +938,7 @@ for sentence in sys.stdin:
 				for shortMarker in markers:
 					for marker in markers[shortMarker]:
 						if modeDebugVerbose and ri in sentenceTokens:
-							print 'Add:', sentenceTokens[ri], marker, marker.rule
+							print('Add:', sentenceTokens[ri], marker, marker.rule)
 						createOrAddDictSet(sentenceRuleMarkers, ri, marker)
 			# Prediction part
 			if not learnMode or learnAlgorithm in ['MaxEnt', 'MaxEntBin', 'SciKit', 'SciKitBin', 'Bayes'] and learnMode in ['label', 'held']:
@@ -956,7 +956,7 @@ for sentence in sys.stdin:
 					if ri in sentenceStanfordNERMarkers:
 						learnFeatures.extend(getStanfordNERFeatures(sentenceStanfordNERMarkers[ri]))
 					if modeDebugVerbose:
-						print 'Local features:', learnFeatures
+						print('Local features:', learnFeatures)
 				# Dynamic programming for prediction
 				if not learnMode or learnMode in ['label', 'held']:
 					# Retrieve learned probabilities
@@ -1049,8 +1049,8 @@ for sentence in sys.stdin:
 					if learnMode and (not '=' in sequenceMarkerProbas or not sequenceMarkerProbas['=']):
 						sequenceMarkerProbas['='] = probaMinimum
 					if modeDebug:
-						print 'Markers probabilities:', sorted(shortMarkerProbas.items(), key=lambda (k,v):(v,k), reverse=True)
-						print 'Sequence probabilities:', sorted(sequenceMarkerProbas.items(), key=lambda (k,v):(v,k), reverse=True)[:10]
+						print('Markers probabilities:', sorted(shortMarkerProbas.items(), key=lambda (k,v):(v,k), reverse=True))
+						print('Sequence probabilities:', sorted(sequenceMarkerProbas.items(), key=lambda (k,v):(v,k), reverse=True)[:10])
 					# Records markers probabilities for held-out file
 					if learnMode == 'held':
 						sentenceShortMarkerProbas[ri] = shortMarkerProbas
@@ -1133,7 +1133,7 @@ for sentence in sys.stdin:
 												newCategoryPathLproba = newAnnotationHypothesisLProbas[newCategoryPath]
 											updatedAnnotationPathLproba = annotationHypothesis[oldCategoryPath].lproba + sequenceMarkerLProba
 											if modeDebug:
-												print 'Test annotation path', oldCategoryPath, sequenceMarker, newCategoryPath, newCategoryPathLproba, updatedAnnotationPathLproba
+												print('Test annotation path', oldCategoryPath, sequenceMarker, newCategoryPath, newCategoryPathLproba, updatedAnnotationPathLproba)
 											if not newCategoryPathLproba or updatedAnnotationPathLproba > newCategoryPathLproba:
 												markers = []
 												for shortMarker in sequenceMarker.split('/'):
@@ -1142,7 +1142,7 @@ for sentence in sys.stdin:
 												newAnnotationHypothesis[newCategoryPath].addNewItems(markers, ri, sequenceMarkerProba)
 												newAnnotationHypothesisLProbas[newCategoryPath] = updatedAnnotationPathLproba
 												if modeDebug:
-													print 'Updates', newCategoryPath, markers, newAnnotationHypothesis[newCategoryPath].lproba, sequenceMarkerProba
+													print('Updates', newCategoryPath, markers, newAnnotationHypothesis[newCategoryPath].lproba, sequenceMarkerProba)
 								categoryPathChildren = newCategoryPathChildren
 							if len(sequenceMarkerProbasSorted):
 								bestHypothesisSearch = sequenceMarkerProbasSorted[-1][1] > probaMinimum or len(newAnnotationHypothesis) < nBestHypothesis
@@ -1154,12 +1154,12 @@ for sentence in sys.stdin:
 									newAnnotationHypothesis[categoryPath] = annotationHypothesis[categoryPath]
 									newAnnotationHypothesis[categoryPath].lproba += noMarkerLproba
 									if modeDebugVerbose:
-										print 'No update for', categoryPath, newAnnotationHypothesis[categoryPath].lproba
+										print('No update for', categoryPath, newAnnotationHypothesis[categoryPath].lproba)
 						annotationHypothesis = newAnnotationHypothesis
 						if modeDebugVerbose:
-							print 'Hypothesis after updates:'
+							print('Hypothesis after updates:')
 							for categoryPath in annotationHypothesis:
-								print '-', categoryPath, ':', annotationHypothesis[categoryPath]
+								print('-', categoryPath, ':', annotationHypothesis[categoryPath])
 					# If threshold to keep best hypothesis apply
 					if discountLength:
 						for categoryPath, hypothesis in annotationHypothesis.items():
@@ -1177,9 +1177,9 @@ for sentence in sys.stdin:
 							nHypothesis += 1
 						annotationHypothesis = newAnnotationHypothesis
 						if modeDebug:
-							print 'Only keep best and depth:'
+							print('Only keep best and depth:')
 							for categoryPath in annotationHypothesis:
-								print '-', categoryPath, ':', annotationHypothesis[categoryPath]
+								print('-', categoryPath, ':', annotationHypothesis[categoryPath])
 			if learnAlgorithm == 'Rules' and learnMode == 'label':
 				for shortMarker in markers:
 					for marker in markers[shortMarker]:
@@ -1188,14 +1188,14 @@ for sentence in sys.stdin:
 							annotationHypothesis[annotationRoot].addNewItems([marker.item], ri, marker.rule.proba)
 							bestAnnotationMarker = None
 							if modeDebug:
-								print 'End best annotation rule:', marker.categoryMarker
+								print('End best annotation rule:', marker.categoryMarker)
 				for shortMarker in markers:
 					for marker in markers[shortMarker]:
 						if marker.beginMarker and (not bestAnnotationMarker or marker.rule.proba > bestAnnotationMarker.rule.proba):
 							bestAnnotationMarker = marker
 							bestAnnotationIndex = ri
 							if modeDebug:
-								print 'Begin best annotation rule:', marker.categoryMarker, marker.rule.proba
+								print('Begin best annotation rule:', marker.categoryMarker, marker.rule.proba)
 			# Moves to next resolution index
 			ri += 1
 	# Create output sentence with escapes and markers
@@ -1216,7 +1216,7 @@ for sentence in sys.stdin:
 						annotationRootHypothesis.addNewItem(expandMarker('-'+category), sentenceItemsLen, probaMinimum)
 					annotationRootProba = annotationRootHypothesis.lproba
 					if modeDebug:
-						print 'Find forced root:', categoryPath, len(categories), annotationRootProba
+						print('Find forced root:', categoryPath, len(categories), annotationRootProba)
 			annotationHypothesis[annotationRoot] = annotationRootHypothesis
 		for i in range(sentenceItemsLen + 1):
 			closingMarkers = []
@@ -1239,8 +1239,8 @@ for sentence in sys.stdin:
 				output.append(sentenceItems[i])
 		if len(output):
 			if modeDebug:
-				print 'Output:'
-			print ' '.join(output)
+				print('Output:')
+			print(' '.join(output))
 	elif learnAlgorithm in ['MaxEnt', 'MaxEntBin', 'SciKit', 'SciKitBin'] and learnMode == 'held':
 		for i in range(sentenceItemsLen + 1):
 			existingShortMarkers = []
@@ -1301,7 +1301,7 @@ for sentence in sys.stdin:
 				sys.stderr.write(' '.join(standOffs)+'\n')
 			if learnAlgorithm == 'Wapiti':
 				if i == sentenceItemsLen:
-					print ''
+					print('')
 				else:
 					features = [sentenceItems[i]]
 					features.extend(getBasicFeatures(sentenceInc[i], sentenceChunk[i], sentenceLexical[i], sentencePOS[i], sentenceLemmas[i], sentenceTokens[i], True))
@@ -1321,7 +1321,7 @@ for sentence in sys.stdin:
 								else:
 									currentCasenEntities.append(sentenceCasenMarker[5:-1])
 						if modeDebug:
-							print 'CasEN feature:', '/'.join(currentCasenEntities)
+							print('CasEN feature:', '/'.join(currentCasenEntities))
 						features.append('/'.join(currentCasenEntities))
 					if learnMode == 'train':
 						for j in range(len(currentCategories)):
@@ -1340,7 +1340,7 @@ for sentence in sys.stdin:
 						features.append('/'.join(currentCategories))
 					else:
 						features.append('O')
-					print '\t'.join(features)
+					print('\t'.join(features))
 			elif learnAlgorithm in ['MaxEnt', 'MaxEntBin', 'SciKit', 'SciKitBin']:
 				features = []
 				if i < sentenceItemsLen:
@@ -1356,7 +1356,7 @@ for sentence in sys.stdin:
 						transitionMarkers.append(marker.shortMarker)
 				if len(features):
 					if learnAlgorithm in ['MaxEnt', 'MaxEntBin']:
-						print ','.join(transitionMarkers) + '\t' + '\t'.join(features)
+						print(','.join(transitionMarkers) + '\t' + '\t'.join(features))
 					elif learnAlgorithm == 'SciKit':
 						sequenceLines += 1
 						markerLines += len(transitionMarkers)
@@ -1364,8 +1364,8 @@ for sentence in sys.stdin:
 						for transitionMarker in transitionMarkers:
 							transitionMarkerIds.append(getShortMarkerId(transitionMarker))
 						if modeDebug:
-							print '\t'.join(['/'.join(transitionMarkers), '\t'.join(features)])
-						print '\t'.join([getSequenceMarkerId('/'.join(transitionMarkers)), ','.join(transitionMarkerIds), '\t'.join([str(getFeatureId(feature)) for feature in features])])
+							print('\t'.join(['/'.join(transitionMarkers), '\t'.join(features)]))
+						print('\t'.join([getSequenceMarkerId('/'.join(transitionMarkers)), ','.join(transitionMarkerIds), '\t'.join([str(getFeatureId(feature)) for feature in features])]))
 # Adds mined patterns as features for Wapiti
 if learnMode == 'train' and learnAlgorithm == 'Wapiti':
 	sys.stderr.write('# Corpus mined patterns as unigram and bigram features\n')
@@ -1393,13 +1393,13 @@ if learnMode == 'train' and learnAlgorithm in ['SciKit', 'SciKitBin']:
 		sys.stderr.write('seq\t' + markerSequence + '\t' + sequenceMarkerIds[markerSequence] + '\n')
 # Prints stats for held
 elif learnAlgorithm in ['MaxEnt', 'MaxEntBin', 'SciKit', 'SciKitBin'] and learnMode == 'held':
-	print 'Detection:', float(heldStats['detect-cr'])/float(heldStats['items'])
+	print('Detection:', float(heldStats['detect-cr'])/float(heldStats['items']))
 	recoPrecision = float(heldStats['reco-cr'])/float(heldStats['reco-c'])
 	recoRecall = float(heldStats['reco-cr'])/float(heldStats['reco-r'])
 	recoFscore = 0.0
 	if recoPrecision + recoRecall:
 		recoFscore = 2*recoPrecision*recoRecall/(recoPrecision + recoRecall)
-	print 'Recognition: fscore', recoFscore, 'precision', recoPrecision, 'recall', recoRecall
+	print('Recognition: fscore', recoFscore, 'precision', recoPrecision, 'recall', recoRecall)
 	disambPrecision = 0.0
 	if heldStats['disamb-c']:
 		disambPrecision = float(heldStats['disamb-cr'])/float(heldStats['disamb-c'])
@@ -1409,6 +1409,6 @@ elif learnAlgorithm in ['MaxEnt', 'MaxEntBin', 'SciKit', 'SciKitBin'] and learnM
 	disambFscore = 0.0
 	if disambPrecision + disambRecall:
 		disambFscore = 2*disambPrecision*disambRecall/(disambPrecision + disambRecall)
-	print 'Disambiguation: fscore', disambFscore, 'precision', disambPrecision, 'recall', disambRecall
-	print 'Sequences ranking: recognition', float(heldStats['reco-sr'])/float(heldStats['items']), 'disambiguation', float(heldStats['disamb-sr'])/float(heldStats['disamb-sra'])
+	print('Disambiguation: fscore', disambFscore, 'precision', disambPrecision, 'recall', disambRecall)
+	print('Sequences ranking: recognition', float(heldStats['reco-sr'])/float(heldStats['items']), 'disambiguation', float(heldStats['disamb-sr'])/float(heldStats['disamb-sra']))
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -12,5 +12,5 @@ for sentence in sys.stdin:
 			for lexicalFeature in tokenParts[2].split('+'):
 				lexicalFeatures[lexicalFeature] = True
 for lexicalFeature in lexicalFeatures:
-	print lexicalFeature
+	print(lexicalFeature)
 

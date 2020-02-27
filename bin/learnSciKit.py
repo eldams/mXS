@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Imports
@@ -45,7 +45,7 @@ for line in open(infosFilename):
 		sequenceClassesLen[sequenceId] = len(lineParts[1].split('/'))
 
 # Loads data
-print 'Loading data:', nbSequences, 'sequences (', nbSequenceClasses,'distincts),', nbMarkers, 'markers (', nbMarkerClasses,'distincts)', nbFeatures, 'features'
+print('Loading data:', nbSequences, 'sequences (', nbSequenceClasses,'distincts),', nbMarkers, 'markers (', nbMarkerClasses,'distincts)', nbFeatures, 'features')
 markerCount = 0
 markerTargetsSet = numpy.zeros(nbMarkers, dtype=numpy.int)
 markerClassFrequencies = numpy.zeros(nbMarkerClasses)
@@ -73,14 +73,14 @@ for line in sys.stdin:
 		markerCount += 1
 		sequenceMarkerIds[sequenceId, markerId] += 1
 	if modeDebug and not sequenceCount%10000:
-		print ' >', sequenceCount
+		print(' >', sequenceCount)
 
 # Learning markers model
 if modeLoadMarkersModel:
 	markersClassifier = pickle.load(open(corpusPath + '/model_markers.txt', 'rb'))
 else:
-	print 'Learning markers'
-	print ' - parametrizing weights'
+	print('Learning markers')
+	print(' - parametrizing weights')
 	classWeights = None # None, auto
 	if modeAdjustWeights and annotationFormat == 'Ester2' and not classWeights:
 		classWeights = {}
@@ -110,7 +110,7 @@ else:
 					classWeights[targetId] = 10
 				else:
 					classWeights[targetId] = 5
-	print ' - prepare classifier for', learnAlgo
+	print(' - prepare classifier for', learnAlgo)
 	markersClassifier = None
 	if learnAlgo == 'LogisticRegression':
 		#markersClassifier = linear_model.LogisticRegression(C=nbMarkers, penalty='l1', class_weight=classWeights)
@@ -128,9 +128,9 @@ else:
 	elif learnAlgo == 'ExtraTreesClassifier':
 		markersClassifier = ensemble.ExtraTreesClassifier(min_samples_split=10, min_density=1)
 		markerFeaturesSet = markerFeaturesSet.toarray()
-	print ' - fit dataset'
+	print(' - fit dataset')
 	markersClassifier.fit(markerFeaturesSet, markerTargetsSet)
-	print ' - save model to file'
+	print(' - save model to file')
 	pickle.dump(markersClassifier, open(corpusPath + '/model_markers.txt', 'wb'))
 
 # Compute permutation cost as edit distance adapted to sequences
@@ -155,15 +155,15 @@ def getSequenceDistance(s1, s2):
 	return min(insertionDistance, deletionDistance, substitutionDistance)
 
 # Learning sequences model
-print 'Learning sequences'
-print ' - prepare sequences classifier'
+print('Learning sequences')
+print(' - prepare sequences classifier')
 sequenceFeaturesSet = sequenceFeaturesSet.tocsr()
 sequenceMarkerProbas = markersClassifier.predict_proba(sequenceFeaturesSet)
-print ' - initializes markers to sequence matrix'
+print(' - initializes markers to sequence matrix')
 sequenceMarkerIds /= markerClassFrequencies
 for sequenceId in sequenceClassesLen:
 	sequenceMarkerIds[sequenceId] /= sequenceClassesLen[sequenceId]
-print ' - fit dataset'
+print(' - fit dataset')
 # sequence_classifierclasses: MatrixClassifierMeanSquaredError, MatrixClassifierPermutationError, MatrixClassifierSVM
 permutationCosts = None
 if modeAdjustCosts and annotationFormat in ['Ester2', 'Etape']:
@@ -183,6 +183,6 @@ if modeAdjustCosts and annotationFormat in ['Ester2', 'Etape']:
 #sequenceClassifier = sequence_classifier.MatrixClassifierSVM()
 sequenceClassifier = sequence_classifier.MatrixClassifierLogit()
 sequenceClassifier.fit(sequenceMarkerProbas, sequenceTargetsSet)
-print ' - save model to file'
+print(' - save model to file')
 pickle.dump(sequenceClassifier, open(corpusPath + '/model_sequences.txt', 'wb'))
 
