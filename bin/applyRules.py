@@ -813,7 +813,7 @@ for sentence in sys.stdin:
 					sentencePOS[itemIndex] = '/'.join(tokenParts[3:-2])
 				# Search rules
 				newRuleNodeMatches = {}
-				tokenParts = filter(lambda tokenPart: tokenPart != '-', tokenParts)
+				tokenParts = list(filter(lambda tokenPart: tokenPart != '-', tokenParts))
 				previousTokenParents = tokenParents
 				tokenParents = getTokenParents(tokenParts)
 				if modeDebugVerbose:
@@ -1049,8 +1049,8 @@ for sentence in sys.stdin:
 					if learnMode and (not '=' in sequenceMarkerProbas or not sequenceMarkerProbas['=']):
 						sequenceMarkerProbas['='] = probaMinimum
 					if modeDebug:
-						print('Markers probabilities:', sorted(shortMarkerProbas.items(), key=lambda (k,v):(v,k), reverse=True))
-						print('Sequence probabilities:', sorted(sequenceMarkerProbas.items(), key=lambda (k,v):(v,k), reverse=True)[:10])
+						print('Markers probabilities:', sorted(shortMarkerProbas.items(), key=lambda pair:pair[1], reverse=True))
+						print('Sequence probabilities:', sorted(sequenceMarkerProbas.items(), key=lambda pair:pair[1], reverse=True)[:10])
 					# Records markers probabilities for held-out file
 					if learnMode == 'held':
 						sentenceShortMarkerProbas[ri] = shortMarkerProbas
@@ -1067,7 +1067,7 @@ for sentence in sys.stdin:
 						if not forceMarkers:
 							for categoryPath in annotationHypothesis:
 								newAnnotationHypothesisLProbas[categoryPath] = annotationHypothesis[categoryPath].lproba + noMarkerLproba
-						sequenceMarkerProbasSorted = sorted(sequenceMarkerProbas.items(), key=lambda (k,v):(v,k))
+						sequenceMarkerProbasSorted = sorted(sequenceMarkerProbas.items(), key=lambda pair:pair[1])
 						reverseCategoryPathTree = {}
 						for categoryPath in annotationHypothesis:
 							reverseCategoryPathNode = reverseCategoryPathTree
@@ -1257,7 +1257,7 @@ for sentence in sys.stdin:
 				sequenceMarkerRank = len(idSequenceMarkers)
 				sentenceSequenceMarkerProbasSorted = None
 				if i in sentenceSequenceMarkerProbas:
-					sentenceSequenceMarkerProbasSorted = sorted(sentenceSequenceMarkerProbas[i].items(), key=lambda (k,v):(v,k), reverse=True)
+					sentenceSequenceMarkerProbasSorted = sorted(sentenceSequenceMarkerProbas[i].items(), key=lambda pair:pair[1], reverse=True)
 					sentenceSequenceMarkerProbasSorted = [sentenceSequenceMarkerProba[0] for sentenceSequenceMarkerProba in sentenceSequenceMarkerProbasSorted]
 					if existingSequenceMarker in sentenceSequenceMarkerProbasSorted:
 						sequenceMarkerRank = sentenceSequenceMarkerProbasSorted.index(existingSequenceMarker) + 1
@@ -1267,7 +1267,7 @@ for sentence in sys.stdin:
 					heldStats['disamb-sra'] += 1
 			predictedShortMarkers = []
 			if i in sentenceShortMarkerProbas:
-				for predictedShortMarker in sorted(sentenceShortMarkerProbas[i].items(), key=lambda (k,v):(v,k), reverse=True):
+				for predictedShortMarker in sorted(sentenceShortMarkerProbas[i].items(), key=lambda pair:pair[1], reverse=True):
 					predictedShortMarkers.append(predictedShortMarker[0])
 			existingShortMarkersLen = len(existingShortMarkers)
 			predictedShortMarkersLen = len(predictedShortMarkers)

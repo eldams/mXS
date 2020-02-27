@@ -205,7 +205,7 @@ def outputSequence(sequence):
 		for i in range(0, sequenceLen):
 			if binOutput:
 				# For mining, remove null features
-				sequence[i].parts = filter(lambda tokenPart: tokenPart != '-', sequence[i].parts)
+				sequence[i].parts = list(filter(lambda tokenPart: tokenPart != '-', sequence[i].parts))
 				# For mining, removes surface form for tokens (but keeps lemma)
 				if sequence[i].isToken:
 					sequence[i].parts.pop()

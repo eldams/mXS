@@ -114,7 +114,7 @@ else:
 	markersClassifier = None
 	if learnAlgo == 'LogisticRegression':
 		#markersClassifier = linear_model.LogisticRegression(C=nbMarkers, penalty='l1', class_weight=classWeights)
-		markersClassifier = linear_model.LogisticRegression()
+		markersClassifier = linear_model.LogisticRegression(max_iter=10000,verbose=5)
 		markerFeaturesSet = markerFeaturesSet.tocsr()
 	elif learnAlgo == 'SVM':
 		markersClassifier = svm.SVC(probability=True, C=nbMarkers, class_weight=classWeights)
