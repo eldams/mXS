@@ -14,7 +14,7 @@ echo 'Preprocessing and encoding corpus with translations and hierarchies' >&2
 cat $CORPUS_FILE_PATH | $PREPROCESS_SCRIPT | $SEQUENCE_SCRIPT $CORPUS_TMP/corpus_mine.translation $CORPUS_TMP/corpus_mine.hierarchy > $CORPUS_TMP/corpus_mine.bin
 
 echo "Looking for patterns (support:$SMINER_MINIMUM_SUPPORT, confidence:$SMINER_MINIMUM_CONFIDENCE)" >&2
-SMINER_TARGET_ID=`/bin/grep " $SMINER_TARGET_STR\$" $CORPUS_TMP/corpus_mine.translation | sed 's/ .*//'`
+SMINER_TARGET_ID=$(grep " $SMINER_TARGET_STR\$" $CORPUS_TMP/corpus_mine.translation | sed 's/ .*//')
 SMINER_PARAMS="-mf $SMINER_MINIMUM_SUPPORT -omc $SMINER_TARGET_ID $SMINER_MINIMUM_CONFIDENCE -smooth $SMINER_SMOOTHING"
 SMINER_PARAMS=$SMINER_PARAMS" -hierarchy $CORPUS_TMP/corpus_mine.hierarchy -translation $CORPUS_TMP/corpus_mine.translation"
 #SMINER_PARAMS=$SMINER_PARAMS" -st"

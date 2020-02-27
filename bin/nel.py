@@ -54,7 +54,7 @@ def approxMatch(s1, s2, l):
 		excludes = string.punctuation+' \t\n'
 		s1 = ''.join(c for c in s1 if c not in excludes)
 		s2 = ''.join(c for c in s2 if c not in excludes)
-		print s1, s2
+		# print s1, s2
 		if s1 == s2:
 			return True
 		elif l > 1:
@@ -140,4 +140,4 @@ def identifier_NEs(content):
                 content = old.sub(new, content)
     return content
 
-print identifier_NEs(sys.stdin.read())
+print(identifier_NEs(sys.stdin.read()))
