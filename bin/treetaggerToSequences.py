@@ -95,10 +95,11 @@ class DictionaryNode:
 
 # Dictionnaries (create dictionnary from Unitex : cat *.dic | iconv -f UTF-16LE -t UTF-8 | sed 's/\xEF\xBB\xBF//' | tr '\r' '\n' | sed -E '/^[ \t]*$/d' | sort | uniq)
 dictionnaries = {}
+dicospath = os.environ['DICOS_PATH']
 def readDictionary(filename, dictionaryCoding, dictionnaryMapping = None):
 	rootDictionaryNode = DictionaryNode()
 	if dictionaryCoding == 'Unitex' and dictionnaryMapping:
-		for dicoLine in open(os.environ['DICOS_PATH']+'/'+filename):
+		for dicoLine in open(dicospath+'/'+filename):
 			dicoLineParts = re.match(r'(([^,]|\,)*),([^\.]|\.)*\.([^:]*)', dicoLine)
 			if dicoLineParts:
 				lexem = dicoLineParts.group(1)
@@ -115,7 +116,7 @@ def readDictionary(filename, dictionaryCoding, dictionnaryMapping = None):
 				if len(tokens) and len(categories):
 					rootDictionaryNode.addNodes(tokens, categories)
 	if dictionaryCoding == 'mxs':
-		for dicoLine in open(os.environ['DICOS_PATH']+'/'+filename):
+		for dicoLine in open(dicospath+'/'+filename):
 			dicoLineParts = dicoLine.strip().split('\t')
 			if len(dicoLineParts) == 2:
 				tokens = dicoLineParts[0].split(' ')
@@ -124,18 +125,23 @@ def readDictionary(filename, dictionaryCoding, dictionnaryMapping = None):
 					categories[category] = True
 				rootDictionaryNode.addNodes(tokens, categories)
 	return rootDictionaryNode
+import joblib
 if useDictionnaries:
-	dictionnaries['CasEN'] = readDictionary('CasEN_en.dic', 'Unitex', {'Ensemble': 'COLL', 'Loi': 'PROD', 'Œuvre': 'PROD', 'ville': 'VILLE', 'Astronyme': 'ASTRO', 'Objet': 'OBJ', 'ToponymeAmbigu': 'TOPOA', 'Radio': 'MEDIA', 'Dynastie': 'DYN', 'Chaine': 'MEDIA', 'SiteInternet': 'MEDIA', 'Animateur': 'IND', 'Journal': 'MEDIA', 'Humour': 'IND', 'Volcan': 'GEO', 'Journaliste': 'IND', 'Produit': 'PROD', 'Surnom': 'SURNOM', 'Sportif': 'IND', 'Institution': 'INST', 'Religion': 'RELIG', 'Edifice': 'BAT', 'Logiciel': 'PROD', 'PartiPolitique': 'COLL', 'Geonyme': 'GEO', 'Marque': 'PROD', 'GroupeMusical': 'COLL', 'Monnaie': 'MON', 'Politique': 'POL', 'Acteur': 'IND', 'Sport': 'SPORT', 'Chanteur': 'IND', 'Oeuvre': 'PROD', 'Histoire': 'EVT', 'Supranational': 'SNAT', 'Ethnonyme': 'ETHNO', 'Pragmonyme': 'EVT', 'Spectacle': 'EVT', 'Animal': 'ANIM', 'Association': 'ASS', 'Entreprise': 'ENT', 'Emission': 'MEDIA', 'TV': 'MEDIA', 'Media': 'MEDIA', 'Commerce': 'COM', 'Organisation': 'ORG', 'Groupement': 'COLL', 'Pays': 'NAT', 'Collectif': 'COLL', 'Ergonyme': 'PROD', 'Hydronyme': 'HYDRO', 'Region': 'REG', 'Territoire': 'TER', 'Celebrite': 'IND', 'Individuel': 'IND', 'Anthroponyme': 'IND', 'Prenom': 'PREN', 'Profession': 'PRO', 'Hum': 'IND', 'Ville': 'VILLE', 'Toponyme': 'TOPO'})
-	if annotationFormat == 'Ester2' and useLists:
-		dictionnaries['casen_lists'] = readDictionary('CasEN_lists_Ester2.dic', 'mxs')
-	elif annotationFormat == 'Etape' and useLists:
-		dictionnaries['casen_lists'] = readDictionary('CasEN_lists_Etape.dic', 'mxs')
-	dictionnaries['time'] = readDictionary('time.dic', 'mxs')
-	dictionnaries['quantities'] = readDictionary('quantities.dic', 'mxs')
-	dictionnaries['jobs'] = readDictionary('jobs.dic', 'mxs')
-	dictionnaries['locations'] = readDictionary('locations.dic', 'mxs')
-	dictionnaries['organizations'] = readDictionary('organizations.dic', 'mxs')
-
+	dicospathjoblib = dicospath+'/dictionnaries.joblib'
+	if os.path.isfile(dicospathjoblib):
+		dictionnaries = joblib.load(dicospathjoblib)
+	else:
+		dictionnaries['CasEN'] = readDictionary('CasEN_en.dic', 'Unitex', {'Ensemble': 'COLL', 'Loi': 'PROD', 'Œuvre': 'PROD', 'ville': 'VILLE', 'Astronyme': 'ASTRO', 'Objet': 'OBJ', 'ToponymeAmbigu': 'TOPOA', 'Radio': 'MEDIA', 'Dynastie': 'DYN', 'Chaine': 'MEDIA', 'SiteInternet': 'MEDIA', 'Animateur': 'IND', 'Journal': 'MEDIA', 'Humour': 'IND', 'Volcan': 'GEO', 'Journaliste': 'IND', 'Produit': 'PROD', 'Surnom': 'SURNOM', 'Sportif': 'IND', 'Institution': 'INST', 'Religion': 'RELIG', 'Edifice': 'BAT', 'Logiciel': 'PROD', 'PartiPolitique': 'COLL', 'Geonyme': 'GEO', 'Marque': 'PROD', 'GroupeMusical': 'COLL', 'Monnaie': 'MON', 'Politique': 'POL', 'Acteur': 'IND', 'Sport': 'SPORT', 'Chanteur': 'IND', 'Oeuvre': 'PROD', 'Histoire': 'EVT', 'Supranational': 'SNAT', 'Ethnonyme': 'ETHNO', 'Pragmonyme': 'EVT', 'Spectacle': 'EVT', 'Animal': 'ANIM', 'Association': 'ASS', 'Entreprise': 'ENT', 'Emission': 'MEDIA', 'TV': 'MEDIA', 'Media': 'MEDIA', 'Commerce': 'COM', 'Organisation': 'ORG', 'Groupement': 'COLL', 'Pays': 'NAT', 'Collectif': 'COLL', 'Ergonyme': 'PROD', 'Hydronyme': 'HYDRO', 'Region': 'REG', 'Territoire': 'TER', 'Celebrite': 'IND', 'Individuel': 'IND', 'Anthroponyme': 'IND', 'Prenom': 'PREN', 'Profession': 'PRO', 'Hum': 'IND', 'Ville': 'VILLE', 'Toponyme': 'TOPO', 'PR': 'NPR'})
+		if annotationFormat == 'Ester2' and useLists:
+			dictionnaries['casen_lists'] = readDictionary('CasEN_lists_Ester2.dic', 'mxs')
+		elif annotationFormat == 'Etape' and useLists:
+			dictionnaries['casen_lists'] = readDictionary('CasEN_lists_Etape.dic', 'mxs')
+		dictionnaries['time'] = readDictionary('time.dic', 'mxs')
+		dictionnaries['quantities'] = readDictionary('quantities.dic', 'mxs')
+		dictionnaries['jobs'] = readDictionary('jobs.dic', 'mxs')
+		dictionnaries['locations'] = readDictionary('locations.dic', 'mxs')
+		dictionnaries['organizations'] = readDictionary('organizations.dic', 'mxs')
+		joblib.dump(dictionnaries, dicospathjoblib)
 
 # Chunking (available tags: </AdP> <AdP> </AP> <AP> </COORD> <COORD> </NP> <NP> </PONCT:S> <PONCT:S> </PP> <PP> </s> <s> </Sint> <Sint> </Srel> <Srel> </Ssub> <Ssub> </VN> <VN> </VPinf> <VPinf> </VPpart> <VPpart>)
 chunkingTagsFeatures = {'AdP': 'SA', 'AP': False, 'COORD': False, 'NP': 'SN', 'PONCT:S': False, 'PP': 'SP', 's': False, 'Sint': False, 'Srel': False, 'Ssub': False, 'VN': 'SV', 'VPinf': False, 'VPpart': False}

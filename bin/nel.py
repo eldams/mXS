@@ -6,7 +6,7 @@ import os, json, re, codecs, sys, collections, math, wikiapi, string
 sys.stdin = codecs.getreader('utf8')(sys.stdin)
 sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 
-mxspath = os.environ.get('MXS_PATH')
+dicospath = os.environ.get('DICOS_PATH')
 json_data ={}
 wiki = wikiapi.WikiApi({'locale': 'fr'})
 
@@ -103,7 +103,7 @@ def get_wikilinks(entity, content):
 			return wiki.get_article(results[0]).url
 
 def extract_data():
-    data = mxspath+"/dicos/links.json"
+    data = dicospath+"/links.json"
     dico = {}
     lines = [line for line in codecs.open(data)]
     js = [json.loads(line) for line in lines]

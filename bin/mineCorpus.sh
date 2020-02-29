@@ -30,4 +30,3 @@ $MXS_BIN/sminer $SMINER_PARAMS $CORPUS_TMP/corpus_mine.bin
 
 echo 'Cleaning' >&2
 #/bin/rm -f $CORPUS_TMP/*
-

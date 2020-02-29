@@ -220,4 +220,3 @@ echo 'Done !'
 
 echo 'Cleaning'
 #/bin/rm -f $CORPUS_TMP/*
-

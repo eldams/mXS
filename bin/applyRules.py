@@ -153,8 +153,9 @@ sequenceMarkerIds = {}
 idSequenceMarkers = {}
 if learnAlgorithm in ['SciKit', 'SciKitBin'] and learnMode in ['label', 'held']:
 	import pickle, numpy
-	for line in open(corpusModel + '/model_infos.tsv', 'rb'):
-		lineParts = line.strip().split('\t')
+	for line in open(corpusModel + '/model_infos.tsv'):
+		line = line.strip()
+		lineParts = line.split('\t')
 		if lineParts[0] == 'feat':
 			featureId = int(lineParts[2])
 			if featureId > maxFeatureId:

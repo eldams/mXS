@@ -64,7 +64,7 @@ for marker in markerIds:
 		if markerId + 1 in sequenceTargetsSet[i]:
 			markerTargetsSet[i] = 1
 	if learnAlgo == 'LogisticRegression':
-		sequencesClassifier = linear_model.LogisticRegression()
+		sequencesClassifier = linear_model.LogisticRegression(max_iter=1000)
 		sequenceFeaturesSet = sequenceFeaturesSet.tocsr()
 	elif learnAlgo == 'SVM':
 		sequencesClassifier = svm.SVC(probability=True)
