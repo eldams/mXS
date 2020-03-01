@@ -8,6 +8,7 @@ sed -E 's|NEW/(NE/</?NE)|\1m|g' |
 # Recover tokens
 sed -E 's#( |^)[^ <]*[^<]/([^/ ]*)#\1\2#g' |
 # Remove tags
+sed -E 's/\. <_fs_>//g' |
 sed -E 's/(<_n|n_>)//g' |
 sed -e 's|<_b|\'$'\n|g' |
 sed -E 's|<_t|<|g' |

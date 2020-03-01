@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Imports
-import sys, os, pickle, numpy, math
+import sys, os, joblib, numpy, math
 from scipy import sparse
 from sklearn import linear_model, tree, svm, ensemble
 import sequence_classifier
@@ -14,7 +14,7 @@ modeAdjustWeights = True
 modeAdjustCosts = True
 learnAlgo = 'LogisticRegression' # LogisticRegression, SVM, DecisionTreeClassifier, RandomForestClassifier, ExtraTreesClassifier
 infosFilename = sys.argv[1]
-corpusPath = os.environ.get('CORPUS_PATH')
+corpusModel = os.environ.get('CORPUS_MODEL')
 learnSequencesSteps = int(os.environ.get('LEARN_SEQ_STEPS', 0))
 annotationFormat = os.environ.get('ANNOTATION_FORMAT')
 
@@ -77,7 +77,7 @@ for line in sys.stdin:
 
 # Learning markers model
 if modeLoadMarkersModel:
-	markersClassifier = pickle.load(open(corpusPath + '/model_markers.txt', 'rb'))
+	markersClassifier = joblib.load(corpusModel + '/model_markers.txt', 'rb')
 else:
 	print('Learning markers')
 	print(' - parametrizing weights')
@@ -114,7 +114,7 @@ else:
 	markersClassifier = None
 	if learnAlgo == 'LogisticRegression':
 		#markersClassifier = linear_model.LogisticRegression(C=nbMarkers, penalty='l1', class_weight=classWeights)
-		markersClassifier = linear_model.LogisticRegression()
+		markersClassifier = linear_model.LogisticRegression(max_iter=10000)
 		markerFeaturesSet = markerFeaturesSet.tocsr()
 	elif learnAlgo == 'SVM':
 		markersClassifier = svm.SVC(probability=True, C=nbMarkers, class_weight=classWeights)
@@ -131,7 +131,7 @@ else:
 	print(' - fit dataset')
 	markersClassifier.fit(markerFeaturesSet, markerTargetsSet)
 	print(' - save model to file')
-	pickle.dump(markersClassifier, open(corpusPath + '/model_markers.txt', 'wb'))
+	joblib.dump(markersClassifier, corpusModel + '/model_markers.txt')
 
 # Compute permutation cost as edit distance adapted to sequences
 def getSequenceDistance(s1, s2):
@@ -184,5 +184,4 @@ if modeAdjustCosts and annotationFormat in ['Ester2', 'Etape']:
 sequenceClassifier = sequence_classifier.MatrixClassifierLogit()
 sequenceClassifier.fit(sequenceMarkerProbas, sequenceTargetsSet)
 print(' - save model to file')
-pickle.dump(sequenceClassifier, open(corpusPath + '/model_sequences.txt', 'wb'))
-
+joblib.dump(sequenceClassifier, corpusModel + '/model_sequences.txt')

@@ -27,6 +27,4 @@ export HYP_IN_EXT=ne
 export HYP_OUT_EXT=ne
 export CORPUS_DATA_SCRIPT=$MXS_BIN/corpusToNe.sh
 export DATA_CORPUS_SCRIPT=$MXS_BIN/neToCorpus.sh
-export SELECT_SCRIPT=$MXS_BIN/selectOuterPLO.py
-
-
+export SELECT_SCRIPT=$MXS_BIN/selectOuterPLOP.py

@@ -152,7 +152,7 @@ idShortMarkers = {}
 sequenceMarkerIds = {}
 idSequenceMarkers = {}
 if learnAlgorithm in ['SciKit', 'SciKitBin'] and learnMode in ['label', 'held']:
-	import pickle, numpy
+	import joblib, numpy
 	for line in open(corpusModel + '/model_infos.tsv'):
 		line = line.strip()
 		lineParts = line.split('\t')
@@ -167,14 +167,14 @@ if learnAlgorithm in ['SciKit', 'SciKitBin'] and learnMode in ['label', 'held']:
 			idSequenceMarkers[int(lineParts[2])] = lineParts[1]
 	if learnAlgorithm == 'SciKit':
 		from sklearn import linear_model
-		sciKitModelMarkers = pickle.load(open(corpusModel + '/model_markers.txt', 'rb'))
+		sciKitModelMarkers = joblib.load(corpusModel + '/model_markers.txt')
 		import sequence_classifier
-		sciKitModelSequences = pickle.load(open(corpusModel + '/model_sequences.txt', 'rb'))
+		sciKitModelSequences = joblib.load(corpusModel + '/model_sequences.txt')
 	else:
 		from sklearn import linear_model
 		sciKitModelMarkers = {}
 		for marker in idShortMarkers.values():
-			sciKitModelMarkers[marker] = pickle.load(open(corpusModel + '/model_' + marker + '.txt', 'rb'))
+			sciKitModelMarkers[marker] = joblib.load(corpusModel + '/model_' + marker + '.txt')
 
 # Load Wapiti lexical features
 lexicalFeatures = {}
@@ -1412,4 +1412,3 @@ elif learnAlgorithm in ['MaxEnt', 'MaxEntBin', 'SciKit', 'SciKitBin'] and learnM
 		disambFscore = 2*disambPrecision*disambRecall/(disambPrecision + disambRecall)
 	print('Disambiguation: fscore', disambFscore, 'precision', disambPrecision, 'recall', disambRecall)
 	print('Sequences ranking: recognition', float(heldStats['reco-sr'])/float(heldStats['items']), 'disambiguation', float(heldStats['disamb-sr'])/float(heldStats['disamb-sra']))
-

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Imports
-import sys, os, pickle, numpy, math
+import sys, os, joblib, numpy, math
 from scipy import sparse
 from sklearn import linear_model, svm
 
@@ -64,7 +64,7 @@ for marker in markerIds:
 		if markerId + 1 in sequenceTargetsSet[i]:
 			markerTargetsSet[i] = 1
 	if learnAlgo == 'LogisticRegression':
-		sequencesClassifier = linear_model.LogisticRegression(max_iter=1000)
+		sequencesClassifier = linear_model.LogisticRegression(max_iter=10000)
 		sequenceFeaturesSet = sequenceFeaturesSet.tocsr()
 	elif learnAlgo == 'SVM':
 		sequencesClassifier = svm.SVC(probability=True)
@@ -73,6 +73,6 @@ for marker in markerIds:
 		sequencesClassifier = linear_model.SGDClassifier(loss = 'log')
 		sequenceFeaturesSet = sequenceFeaturesSet.tocsr()
 	sequencesClassifier.fit(sequenceFeaturesSet, markerTargetsSet)
-	pickle.dump(sequencesClassifier, open(corpusModel + '/model_' + marker + '.txt', 'wb'))
+	joblib.dump(sequencesClassifier, corpusModel + '/model_' + marker + '.txt')
 print('Done')
 
