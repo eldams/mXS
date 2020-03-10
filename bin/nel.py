@@ -3,11 +3,8 @@
 
 import os, json, re, codecs, sys, collections, math, wikiapi, string
 
-sys.stdin = codecs.getreader('utf8')(sys.stdin)
-sys.stdout = codecs.getwriter('utf8')(sys.stdout)
-
 dicospath = os.environ.get('DICOS_PATH')
-json_data ={}
+json_data = {}
 wiki = wikiapi.WikiApi({'locale': 'fr'})
 
 def cut_word(content):
